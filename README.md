@@ -1,4 +1,4 @@
-# ML_Project_ENSAE: Project for the Machine Learnig Class
+# ML_Project_ENSAE: Project for the Machine Learning Class
 
 _M3, ENSAE Paris, Summer Term 2025_
 
