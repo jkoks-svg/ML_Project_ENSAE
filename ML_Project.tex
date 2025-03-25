@@ -1,5 +1,7 @@
-\documentclass{beamer}
-\usetheme{metropolis}   
+\documentclass[aspectratio=169]{beamer}
+\usetheme{metropolis}  
+
+\metroset{block=fill}
 
 \setlength{\parindent}{0pt}
 \usepackage[utf8]{inputenc}
@@ -18,7 +20,7 @@
 \title{Causal Inference Project:\\ Impact of Scholarships on Student Success}
 \date{April 04th, 2025}
 \author{Anushka Mukherjee, Lucie Marimar, Jort Koks, Jakob Sarrazin}
-\institute{Machine Learning for Econometrics \\ ENSAE Paris \\ Bruno Crépon, Matthieu Doutreligne}
+\institute{Machine Learning for Econometrics \\ ENSAE, IP Paris \\ Bruno Crépon, Matthieu Doutreligne}
 
 % ---------------------------------------
 % Begin Document
@@ -27,10 +29,56 @@
 \begin{document}
   \maketitle
   
+  \begin{frame}{Motivation I}
+  	\textbf{Retention and Completion: A Core Challenge for Universities}
+  	\begin{itemize}
+  		\item [$\rightarrow$] \textbf{High dropout rates} are a persistent issue in higher education, especially during the first years of study.
+  		\item [$\rightarrow$] \textbf{Timely graduation} is crucial for both students (career entry) and universities (funding, reputation
+  		\item [$\Rightarrow$] \textbf{Financial constraints} are a major barrier to academic success — especially for socio-economically disadvantaged students.
+  	\end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Motivation II}
+  	\textbf{Scholarships as a Tool to Improve Student Retention and Graduation}
+  	
+  	\begin{itemize}
+  		\item [$\rightarrow$]  \textbf{Scholarship programs} are widely used as an intervention, but:
+  		\begin{itemize}
+  		  		\item [--] Their  \textbf{causal effect} on student outcomes is difficult to measure
+  		  		\item [--] Many studies show correlations, but few rigorously identify causality.
+   		\end{itemize}
+   		\item [$\rightarrow$] This study uses a \textbf{causal machine learning framework (DML)} to estimate the  \textbf{true effect of scholarships}, adjusting for observed confounders.
+   		\item [$\rightarrow$] Findings can inform \textbf{policy decisions} on financial aid allocation and \textbf{targeting of support} for at-risk students.
+  	\end{itemize}
+  \end{frame}
+  
   \section{PICO}
   
-  \begin{frame}{PICO}
-    Hello, world!
+  \begin{frame}{PICO Formulation}
+  \textbf{Population, Intervention, Comparison, Outcome}
+  	\begin{itemize}
+  		\item [P - ] Undergraduate students at a Portuguese university (N = 4,424), with data on demographics, socio-economic background, and prior academic performance.
+  		\item [I - ] Receiving a scholarship during university studies.
+  		\item [C - ] Students without scholarships, adjusted for observed confounders (grades, family background, gender, etc.).
+  		\item [O - ] Two binary outcomes observed 3 years after enrollment:
+  
+  	\begin{itemize}
+  		\item [1.] Dropout vs. Enrolled/Graduated
+  		\item [2.] Graduated vs. Dropout/Enrolled
+  	\end{itemize}
+  	
+  	\end{itemize}
+  \end{frame}
+
+  
+  \begin{frame}{Research Question}
+    \begin{alertblock}{RQ1}
+	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
+\end{alertblock}
+\vspace{10pt}
+    \begin{alertblock}{RQ2}
+	Does receiving a scholarship \textbf{increase} the likelihood of \textbf{graduating} within 3 years?
+\end{alertblock}
   \end{frame}
   
 \end{document}
