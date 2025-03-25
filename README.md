@@ -1,5 +1,6 @@
 # ML_Project_ENSAE
-## Project for the Machine Learnig Class (M3) at ENSAE, Summer Term 2025
+## Project for the Machine Learnig Class (M3) 
+_ENSAE Paris, Summer Term 2025_
 ---
 
 # Causal Inference Project: Impact of Scholarships on Student Success
