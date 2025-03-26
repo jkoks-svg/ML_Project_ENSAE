@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{hyperref}
+\usepackage{array}
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
 \usepackage{latexsym,xcolor,multicol,booktabs,calligra}
@@ -16,6 +17,7 @@
 \usepackage{graphicx,stackengine}   
 \usepackage{xcolor}
 \usepackage[sfdefault]{AlegreyaSans}
+\usepackage{tabularx} 
 
 
 \title{Causal Inference Project:\\ Impact of Scholarships on Student Success}
@@ -105,8 +107,33 @@
 \end{frame}
 
 \begin{frame}{Variables}
+\centering
+\renewcommand{\arraystretch}{1.4}
 
+\begin{tabularx}{\textwidth}{X | X | X}
+\textbf{Outcome Variable} & \textbf{Treatment Variable} & \textbf{Covariates}  (Pre Treatment)\\[0.5ex]
+\hline \hline 
+Student status after 3 years: 
+\parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item Dropout
+    \item Still enrolled
+    \item Graduated
+    \item[$\rightarrow$] \textit{Re-coded into two binary variables for RQ1 \& RQ2}
+\end{itemize}} &
+
+Received scholarship or not (\textit{Binary variable}) 
+
+& \vspace{-27pt}
+\parbox[t]{4cm}{\begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item Academic performance before university
+    \item Family background
+    \item Economic context
+    \item Demographics
+\end{itemize}}
+
+\end{tabularx}
 \end{frame}
+
 
 \section{4. Causal Graph and Covariate Selection}
 
