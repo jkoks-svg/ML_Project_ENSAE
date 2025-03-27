@@ -19,6 +19,9 @@
 \usepackage[sfdefault]{AlegreyaSans}
 \usepackage{tabularx} 
 
+\definecolor{white}{RGB}{255,255,255}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{bg=white}
 
 \title{Causal Inference Project:\\ Impact of Scholarships on Student Success}
 \date{April 04th, 2025}
@@ -35,12 +38,26 @@
    \section{1. Motivation}
   
   \begin{frame}{Motivation I}
-  	\textbf{Retention and Completion: A Core Challenge for Universities}
-  	\begin{itemize}
+  		\begin{columns}
+	\begin{column}{0.7\textwidth}
+	\textbf{Retention and Completion: A Core Challenge for Universities}
+
+  		\begin{itemize}
   		\item [$\rightarrow$] \textbf{High dropout rates} are a persistent issue in higher education, especially during the first years of study.
   		\item [$\rightarrow$] \textbf{Timely graduation} is crucial for both students (career entry) and universities (funding, reputation
   		\item [$\Rightarrow$] \textbf{Financial constraints} are a major barrier to academic success — especially for socio-economically disadvantaged students.
   	\end{itemize}
+  \end{column}
+
+	\begin{column}{0.3\textwidth}
+	\begin{center}
+     \includegraphics[width=1\textwidth]{Tex_Pictures/Hat.jpg}
+     \end{center}
+	\end{column}
+
+\end{columns}
+
+  	
   \end{frame}
   
   \begin{frame}{Motivation II}
@@ -134,6 +151,21 @@ Received scholarship or not (\textit{Binary variable})
 \end{tabularx}
 \end{frame}
 
+\begin{frame}{Outcome Variable}
+	\begin{center}
+     \includegraphics[width=0.85\textwidth]{Tex_Pictures/Graph1.png}
+     \end{center}
+\end{frame}
+
+\begin{frame}{Treatment vs Outcome Variable}
+	\begin{center}
+     \includegraphics[width=0.9\textwidth]{Tex_Pictures/Graph2.png}
+     \end{center}
+\end{frame}
+
+\begin{frame}{Covariates}
+	
+\end{frame}
 
 \section{4. Causal Graph and Covariate Selection}
 
