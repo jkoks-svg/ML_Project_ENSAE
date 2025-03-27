@@ -183,11 +183,141 @@ Received scholarship or not (\textit{Binary variable})
      \end{center}
 \end{frame}
 
+
 \section{4. Causal Graph and Covariate Selection}
+
+\begin{frame}{Simplified causal graph}
+	\begin{center}
+     \includegraphics[width=0.7\textwidth]{Tex_Pictures/DAG_simple.png}
+     \end{center}
+\end{frame}
+
+\begin{frame}{Relevant paths}
+\textbf{Three relevant paths between Treatment (incoming) and Outcome}
+\begin{itemize}
+    \item [1.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Outcome
+    \item [2.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\rightarrow$ Outcome
+    \item [3.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\leftarrow$ Treatment (outgoing) $\rightarrow$ Outcome
+\end{itemize}
+All paths are blocked simultaneously by conditioning on the covariates, but NOT conditioning on the post-treatment effects. \
+
+\end{frame}
+
+\begin{frame}{Covariate selection}
+\textbf{37 features in the dataset, including one treatment and one target}
+\begin{tabularx}{\textwidth}{X | X | X}
+\textbf{Pre-treatment (14)}  & \textbf{Post-treatment (14)} & \textbf{Unsuitable (7)} \\[0.5ex]
+\hline \hline 
+\parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item Academic performance before university
+    \item Family background
+    \item Economic context
+    \item Individual characteristics (age, gender, etc.)
+\end{itemize}} 
+
+&%\vspace{-12pt}
+\parbox[t]{4cm}{\begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item Academic performance during university
+    \item Financial sitatation during university
+\end{itemize}}
+&
+\parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+    \item Marital status
+    \item Course selection
+    \item Parental occupation
+    \item Nationality
+    \item Etc.
+\end{itemize}} 
+
+
+\end{tabularx}
+
+
+\end{frame}
+
+\begin{frame}{Full causal graph}
+	\begin{center}
+     \includegraphics[width=\textwidth]{Tex_Pictures/DAG_extended.png}
+     \end{center}
+\end{frame}
+
+\begin{frame}{Assumptions}
+\begin{itemize}
+    \item [1.] \textbf{Ignorability (Conditional Independence)}: no unmeasured factors that both influence scholarship status and dropout rate.
+    \item [2.] \textbf{Positivity}: There should be overlap in characteristics – for any combination of covariates, there are both scholarship and non-scholarship students.
+    \item [3.] \textbf{No interference}: One student’s scholarship doesn’t directly affect another’s outcome.
+\end{itemize}
+
+\end{frame}
+
+
 
 \section{5. Causal Effect Estimation Using Double Post Lasso}
 
 \section{6. Causal Effect Estimation Using Double Machine Learning}
+
+\begin{frame}{Steps (using all suitable covariates)}
+\begin{itemize}
+    \item [1.] Normalize numerical features
+    \item[2.] Random forest classifier to model the treatment (who receives scholarships). It learns $P(T=1|X)$, the propensity score.
+    \item [3.] Lasso regression with cross-validation, used to model the outcome $E[Y|X]$, i.e., the expected dropout probability given covariates.
+    \item [4.] DoubleMLPLR (Partially Linear Regression) estimator for the causal effect of treatment on outcome, controlling for covariates.
+
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Results research question 1}
+\textbf{RQ1: Does receiving a scholarship reduce the likelihood of dropping out within 3 years?}
+
+Estimated Treatment Effect: -0.1701 (17\% decrease)
+
+Standard Error: 0.0137
+
+95\% Confidence Interval: [-0.1969, -0.1432]
+
+T-statistic: -12.4159
+
+P-value: 0.0000
+
+The treatment effect is statistically significant at the 5\% level.
+
+
+\end{frame}
+
+\begin{frame}{Results research question 2}
+\textbf{Does receiving a scholarship increase the likelihood of graduating within 3 years?}
+
+Estimated Treatment Effect: 0.2348 (23\% increase)
+
+Standard Error: 0.0162
+
+95\% Confidence Interval: [0.2031, 0.2666]
+
+T-statistic: 14.4859
+
+P-value: 0.0000
+
+The treatment effect is statistically significant at the 5\% level.
+
+\end{frame}
+
+\begin{frame}{Heterogeneous treatment effects}
+
+\textbf{RQ1: Does receiving a scholarship reduce the likelihood of dropping out within 3 years?}
+
+Treatment Effect (Males): -0.1620 ± 0.0153
+
+Treatment Effect (Females): -0.2167 ± 0.0297
+
+\textbf{Does receiving a scholarship increase the likelihood of graduating within 3 years?}
+
+Treatment Effect (Males): 0.2378 ± 0.0187
+
+Treatment Effect (Females): 0.2499 ± 0.0338
+
+
+\end{frame}
 
 
 \section{X. Conclusion}
