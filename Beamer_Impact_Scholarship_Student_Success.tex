@@ -454,6 +454,39 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 
 \section{8. Robustness and Sensitivity Analysis}
 
+
+\begin{frame}{Identifying Key Predictors of Student Outcomes using Feature Importance}
+\textbf{Random Forest Feature Importance (Dropout and Scholarship Eligibility)}
+\vspace{8pt}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_dropout.jpeg} \\
+\small Dropout Prediction
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_scholarship.jpeg} \\
+\small Scholarship Eligibility
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Identifying Key Predictors of Student Outcomes using Feature Importance}
+\begin{block}{Feature Importance Analysis}
+   
+    The feature importance chart highlights academic performance (e.g., admission grades) as the strongest predictor of student outcomes. However, our primary variables of interest—\textbf{scholarship holding} and \textbf{gender}—appear less significant.
+\end{block}
+
+
+\begin{itemize}
+    \item This is expected, as these variables likely affect student success \textit{indirectly}, mediated by academic factors and financial barriers.
+    \item Random Forest prioritizes features that produce the best splits; hence, academic performance dominates.
+    \item To assess \textbf{direct causal effects}, we exclude semester grades and proceed with causal inference models focused on scholarship and gender.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Sensitivity Analysis: Covariate Sets}
 \textbf{How robust are our results to different model specifications?}
 \vspace{5pt}
