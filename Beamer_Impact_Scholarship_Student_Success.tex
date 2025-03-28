@@ -116,16 +116,19 @@
 
 \begin{frame}{The Data}
 	\textbf{Source}
+	\vspace{-8pt}
 	\begin{itemize}
 		\item [--] UCI Machine Learning Repository – Predict Students Dropout and Academic Success 
 	\end{itemize}
 	
 	\textbf{Scope}
+	\vspace{-8pt}
 	\begin{itemize}
 		\item [--] Administrative records from a Portuguese university $\rightarrow$ 4,424 undergraduate students across various degree programs
 	\end{itemize}
 	
 	\textbf{Observation Period}
+	\vspace{-8pt}
 	\begin{itemize}
 		\item [--] Students tracked for 3 years after enrollment.
 	\end{itemize}
@@ -276,9 +279,9 @@ Received scholarship or not (\textit{Binary variable})
 \begin{frame}{Assumptions}
 \textbf{Main Assumptions for Identification of the Effect}
 \begin{itemize}
-    \item [1.] \textbf{Ignorability (Conditional Independence)}: \\No unmeasured factors that both influence scholarship status and dropout rate.
-    \item [2.] \textbf{Positivity}: \\There should be an overlap in characteristics – for any combination of covariates, there are both scholarship and non-scholarship students.
-    \item [3.] \textbf{No interference}: \\One student’s scholarship does not directly affect another’s outcome.
+    \item [1.] \textbf{Ignorability (Conditional Independence):} \\No unmeasured factors that both influence scholarship status and dropout rate.
+    \item [2.] \textbf{Positivity:} \\There should be an overlap in characteristics – for any combination of covariates, there are both scholarship and non-scholarship students.
+    \item [3.] \textbf{No interference:} \\One student’s scholarship does not directly affect another’s outcome.
 \end{itemize}
 
 \end{frame}
@@ -288,6 +291,22 @@ Received scholarship or not (\textit{Binary variable})
 % Section Double Post Lasso
 % ---------------------------------------
 \section{5. Causal Effect Estimation Using Double Post Lasso}
+
+\begin{frame}{Steps of the DPL Procedure}
+\textbf{Double Post-Lasso Identifies the Causal Effect of Scholarships by Selecting Key Confounders}
+
+\begin{itemize}
+	\item[1.] Select controls for the outcome: Lasso regression of outcome $Y$ on covariates $X$ \\$\rightarrow$ \textit{selects predictors of student success}
+	\item[2.] Select controls for the treatment: Lasso regression of treatment $D$ (scholarship) on $X$ \\ $\rightarrow$ s\textit{elects predictors of scholarship assignment}
+	\item[3.] Union of selected covariates: Take the union of covariates from Steps 1 \& 2 \\ $\rightarrow$ \textit{ensures we control for all relevant confounders}
+	\item[4.] Final OLS Regression Regress $Y$ on $D$ and the selected covariates
+\end{itemize}
+
+\begin{itemize}
+	\item[$\Rightarrow$] DPL allows valid causal inference by \textit{selecting only the covariates that matter} for treatment and outcome, \textit{avoiding overfitting and omitted variable bias}.
+\end{itemize}
+\vspace{-10pt}
+\end{frame}
 
 \begin{frame}{Results DPL: RQ1 (Dropout)}
 \vspace{20pt}
@@ -303,7 +322,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \end{block}
 
-\begin{exampleblock}{Interpretation}
+\begin{exampleblock}{Conclusion}
 \vspace{-3pt}
 \begin{itemize}
 	\item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{reduces} the probability of \textbf{dropout} within 3 years \\ by 20.3 \%-points. 
@@ -327,7 +346,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \end{block}
 
-\begin{exampleblock}{Interpretation}
+\begin{exampleblock}{Conclusion}
 \vspace{-3pt}
 \begin{itemize}
 	\item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{increases} the probability of \textbf{graduating} within \\ 3 years by 27.8 \%-points.
@@ -342,16 +361,28 @@ Received scholarship or not (\textit{Binary variable})
 % ---------------------------------------
 \section{6. Causal Effect Estimation Using Double Machine Learning}
 
-\begin{frame}{Steps (using all suitable covariates)}
+\begin{frame}{Steps of the DML Procedure}
+\textbf{Double Machine Learning Estimates the Causal Effect Using Flexible ML Models}
+\vspace{-3pt}
 \begin{itemize}
-    \item [1.] Normalize numerical features
-    \item[2.] Random forest classifier to model the treatment (who receives scholarships). It learns $P(T=1|X)$, the propensity score.
-    \item [3.] Lasso regression with cross-validation, used to model the outcome $E[Y|X]$, i.e., the expected dropout probability given covariates.
-    \item [4.] DoubleMLPLR (Partially Linear Regression) estimator for the causal effect of treatment on outcome, controlling for covariates.
-
+    \item[1.] Normalize numerical covariates \\ 
+    $\rightarrow$ \textit{ensures comparability and prepares data for ML models}
+    \item[2.] Estimate the propensity score: Random Forest classifier models treatment $D$ on $X$ \\ 
+    $\rightarrow$ \textit{learns who receives scholarships: } $P(D = 1 \mid X)$  
+    \item[3.] Estimate the outcome model: Lasso regression with cross-validation predicts $Y$ from $X$ \\ 
+    $\rightarrow$ \textit{models expected student outcome: } $E[Y \mid X]$
+    \item[4.] Apply DoubleMLPLR (Partially Linear Regression) to estimate the ATE \\ 
+    $\rightarrow$ \textit{controls for confounding via orthogonalization and cross-fitting}
 \end{itemize}
-    
+\vspace{-3pt}
+\begin{itemize}
+    \item[$\Rightarrow$] DML enables robust causal inference by using \textit{machine learning to flexibly control for high-dimensional confounders}, while correcting for overfitting.
+\end{itemize}
+\vspace{-10pt}
 \end{frame}
+
+
+
 \begin{frame}{Results DML: RQ1 (Dropout)}
 \vspace{20pt}
     \begin{alertblock}{RQ1}
@@ -366,7 +397,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \end{block}
 
-\begin{exampleblock}{Interpretation}
+\begin{exampleblock}{Conclusion}
 \vspace{-3pt}
 \begin{itemize}
 	\item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{reduces} the probability of \textbf{dropout} within 3 years \\ by 17.6 \%-points. 
@@ -390,7 +421,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \end{block}
 
-\begin{exampleblock}{Interpretation}
+\begin{exampleblock}{Conclusion}
 \vspace{-3pt}
 \begin{itemize}
 	\item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{increases} the probability of \textbf{graduating} within \\ 3 years by 23.5 \%-points.
@@ -401,9 +432,11 @@ Received scholarship or not (\textit{Binary variable})
 
 \end{frame}
 
+
+% ---------------------------------------
+% Section HTE
+% ---------------------------------------
 \section{7. Heterogenous treatment effects}
-
-
 
 \begin{frame}{Gender-based Heterogeneity Analysis}
 \vspace{5pt}
@@ -417,7 +450,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{alertblock}
 \vspace{5pt}
 \begin{block}{Results}
-\vspace{8}
+\vspace{8pt}
 \begin{columns}
 \begin{column}{0.45\textwidth}
 \textbf{RQ1 – Dropout (↓):}
@@ -437,7 +470,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \end{column}
 \end{columns}
-\vspace{4}
+\vspace{4pt}
 \end{block}
 
 
@@ -451,7 +484,9 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 \end{frame}
 
 
-
+% ---------------------------------------
+% Section Robustness and Sensitivity Analysis
+% ---------------------------------------
 \section{8. Robustness and Sensitivity Analysis}
 
 
@@ -462,12 +497,12 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \centering
-\includegraphics[width=\linewidth]{Tex_Pictures/feature_dropout.jpeg} \\
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_dropout} \\
 \small Dropout Prediction
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
-\includegraphics[width=\linewidth]{Tex_Pictures/feature_scholarship.jpeg} \\
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_scholarship} \\
 \small Scholarship Eligibility
 \end{column}
 \end{columns}
@@ -480,7 +515,7 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 \end{block}
 
 
-\begin{itemize}
+\begin{itemize}[label=--]
     \item This is expected, as these variables likely affect student success \textit{indirectly}, mediated by academic factors and financial barriers.
     \item Random Forest prioritizes features that produce the best splits; hence, academic performance dominates.
     \item To assess \textbf{direct causal effects}, we exclude semester grades and proceed with causal inference models focused on scholarship and gender.
@@ -538,7 +573,7 @@ We estimate the treatment effect using DoubleML while varying the covariates inc
 \end{itemize}
 
 \vspace{10pt}
-\textbf{Result:} Estimated placebo effects for both dropout and graduation are close to zero and statistically insignificant.
+\textbf{Result:} Estimated placebo effects for dropout and graduation are close to zero and statistically insignificant.
 
 \vspace{5pt}
 $\Rightarrow$ Supports that original results are unlikely to be due to spurious correlation or overfitting.
@@ -554,12 +589,70 @@ $\Rightarrow$ Supports that original results are unlikely to be due to spurious 
 
 \vspace{10pt}
 \begin{block}{Conclusion}
-Our results are robust to model specification and randomization checks, suggesting that scholarships have a genuine causal impact on student success.
+Our results are robust to model specification and randomization checks, suggesting that scholarships genuinely impact student success.
 \end{block}
 
 \end{frame}
 
-\section{X. Conclusion}
+\section{9. Conclusion}
 
+\begin{frame}{Conclusion: Causal Impact of Scholarships on Student Success}
+	
+	\textbf{Objective} 
+	\vspace{-5pt}
+	\begin{itemize}
+	\item[\rightarrow]Estimate the causal effect of scholarships on dropout and graduation within 3 years 
+	\item[\rightarrow]Data: 4,424 students from a Portuguese university (UCI dataset) 
+	\end{itemize}
+	\vspace{-5pt}
+	
+	\textbf{Methods}
+	\vspace{-5pt}
+	\begin{itemize}
+	\item[\rightarrow]Double Post-Lasso: Data-driven covariate selection + OLS
+	\item[\rightarrow]Double Machine Learning: Cross-fitting + ML models (Lasso, Random Forest)
+	\end{itemize}
+	\vspace{-5pt}
+	
+	\textbf{Main Results}
+	\vspace{-5pt}
+	\begin{itemize}
+	\item[\rightarrow]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
+	\item[\rightarrow]Robust across estimators, regularization, covariate sets, Placebo test confirms validity
+	\end{itemize}
+	\vspace{-5pt}
+
+	\textbf{Conclusion}
+	\vspace{-5pt}
+	\begin{itemize}
+	\item[\Rightarrow]Scholarships causally improve student outcomes: Strong evidence for policy effectiveness.
+	\item[\Rightarrow]Supports the expansion of financial aid as a tool to reduce dropout and boost completion.
+	\end{itemize}
+	
+\end{frame}
   
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
