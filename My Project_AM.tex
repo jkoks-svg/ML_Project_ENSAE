@@ -319,6 +319,77 @@ Treatment Effect (Females): 0.2499 ± 0.0338
 
 \end{frame}
 
+\section{8. Robustness and Sensitivity Analysis}
+
+\begin{frame}{Sensitivity Analysis: Covariate Sets}
+\textbf{How robust are our results to different model specifications?}
+\vspace{10pt}
+
+We estimate the treatment effect using DoubleML while varying the covariates included in the model:
+
+\begin{itemize}
+    \item Academic preparation
+    \item Family background
+    \item Economic context
+    \item Demographic controls (age, gender, etc.)
+    \item Combined and full models
+\end{itemize}
+
+\vspace{5pt}
+\textbf{Result:} The direction and significance of the effect remains stable, though magnitude varies. Strongest effects seen when economic and family background variables are included.
+\end{frame}
+
+\begin{frame}{Sensitivity Analysis: Visual}
+\textbf{Treatment effect estimates across different covariate sets.}
+\vspace{5pt}
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/sensitivityrq1.png} \\
+\small RQ1: Dropout
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/sensitivityrq2.png} \\
+\small RQ2: On-Time Graduation
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Placebo Test (RQ1 \& RQ2)}
+\textbf{What if scholarship assignment were random?}
+\vspace{10pt}
+
+\begin{itemize}
+    \item We randomly permute the treatment variable (scholarship).
+    \item Re-run DML using this randomized “placebo” treatment.
+    \item Expectation: no causal effect should be detected.
+\end{itemize}
+
+\vspace{10pt}
+\textbf{Result:} Estimated placebo effects for both dropout and graduation are close to zero and statistically insignificant.
+
+\vspace{5pt}
+$\Rightarrow$ Supports that original results are unlikely to be due to spurious correlation or overfitting.
+\end{frame}
+
+
+\begin{frame}{Robustness Summary}
+\begin{itemize}
+    \item Treatment effects are statistically significant and stable across covariate sets.
+    \item Stronger effects seen for students from lower socio-economic backgrounds.
+    \item No significant treatment effect detected in placebo test $\rightarrow$ supports causal interpretation.
+\end{itemize}
+
+\vspace{10pt}
+\begin{block}{Conclusion}
+Our results are robust to model specification and randomization checks, suggesting that scholarships have a genuine causal impact on student success.
+\end{block}
+
+\end{frame}
 
 \section{X. Conclusion}
 
