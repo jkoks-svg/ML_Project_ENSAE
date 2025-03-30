@@ -433,10 +433,311 @@ Received scholarship or not (\textit{Binary variable})
 \end{frame}
 
 
+
+% ---------------------------------------
+% MARIMAR SECTION
+% ---------------------------------------
+
+\section{7.Parameter/model selection for the statistical estimator (cross-validation)}
+
+\begin{frame}{STEPS}
+
+\begin{itemize}
+    \item[1.] Data preprocessing
+
+    \item[2.] 3 Learners for outcomes (Linear, Lasso, Randomforest) and 3 others learners for treatment (Logistic, Lasso, random forest classifier)
+    \item[3.] Combines learners to improve predictions with stacking regressor: \[         \hat{Y_i} = \sum_{j=1}^{3} w_j \hat{Y}_{ij}      \text{  }  \text{ and } \text{  }  \hat{D_i} = \sum_{j=1}^{3} v_j \hat{D}_{ij}         \] 
+    where \( w_j \)  and \( v_j \) are learned through LassoCV.
+        \item A robust approach to estimate \( E[Y|X] \) and \( E[D|X] \).
+    \item[4.] DML estimates 
+    \item But for DPL just cross validation with 10 repetitions
+\end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{RESULTS with cross validation}
+
+\vspace{20pt}
+\begin{alertblock}{DML}
+	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
+	\item Estimated Treatment Effect on dropout: -0.201 VS -0.17,\\ with a wider confidence interval [-0.228, -0.173] VS   [-0.197, -0.143]
+	\item Estimated Treatment Effect on graduate within 3 years:  0.273 VS 0.235,\\ 
+    with a wider confidence interval [0.240, 0.306] VS [0.203, 0.267].
+	
+\end{itemize}
+\end{alertblock}
+
+
+\begin{exampleblock}{Conclusion}
+\vspace{-2pt}
+The effect appears stronger in absolute value, which suggests better handling of data variability through stacking and cross-fitting
+\begin{itemize}
+
+    \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{decreases} the probability of \textbf{dropout} by 20.1 \%-points.
+    \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{increases} the probability of \textbf{graduating} within \\ 3 years by 27.5 \%-points.
+\end{itemize}
+\vspace{-3pt}
+	
+\end{exampleblock}
+
+    
+\end{frame}
+
+
+
+\begin{frame}{RESULTS with cross validation}
+
+\vspace{20pt}
+\begin{alertblock}{DPL}
+	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
+	\item Estimated Treatment Effect on dropout: -0.220 VS ,\\ with a wider confidence interval [-0.246, -0.194] VS   
+	\item Estimated Treatment Effect on graduate within 3 years:  0.313 VS ,\\ 
+    with a wider confidence interval [0.282, 0.344] VS .
+
+\end{itemize}
+\end{alertblock}
+
+
+\begin{exampleblock}{Conclusion}
+\vspace{-2pt}
+DML with Cross-Fitting  leads to stronger effects and more reliable inference. This method better controls for confounders and prevents overfitting, making it the \textbf{preferred approach for causal estimation} in this context.
+
+\vspace{-3pt}
+	
+\end{exampleblock}
+
+    
+\end{frame}
+
+
+
+
+
+
+\section{8.Heterogeneous treatment effects: study the effect of the treatment on different subgroups of the population}
+
+\begin{frame}{STEPS}
+
+\textbf{RQ: Does the impact of scholarships differ for some subgroups of students? \\}
+subgroups defined by: gender, age at enrollment, previous qualification grade , admission grade, mother education and father education
+
+\begin{itemize}
+    \item[1.] \textbf{Step 1}: Estimate the potential outcomes for the treatment and control groups using two separate learners (XGboost here).
+
+gC(Z): Predicted outcome when treated as control (D=0).
+
+gT(Z): Predicted outcome when treated as treatment (D=1).
+
+
+    \item[2.] \textbf{Step 2}: Calculate the treatment effect for each observation as the difference between the predicted outcomes:
+
+Treatment Effect= gT(Z)- gC(Z) for each indicual. This is the raw treatment effect.
+
+
+    \item[3.] \textbf{Step 3} : Regress the treatment effect on the covariates X (Lasso) : CATE(X)
+\end{itemize}
+
+    
+\end{frame}
+    
+
+
+
+
+\begin{frame}{Intermediate results}
+
+\begin{figure}[h!]
+    %\centering
+    \begin{minipage}[b]{0.45\textwidth}
+        
+        \caption{Distribution of estimatesd HE on droupout}
+        \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_of_TE_drop_out.png}
+
+       \textbf{ CATE(X) = -0.215}
+       
+    \end{minipage}
+    \hspace{0.05\textwidth}
+    \begin{minipage}[b]{0.45\textwidth}
+        %\centering
+        \caption{Distribution of estimatesd HE on graduating}
+        \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_TE_graduate.png}
+
+         \textbf{ CATE(X) = 0.283}
+       
+    \end{minipage}
+    
+ \end{figure}   
+\end{frame}
+
+
+
+
+\begin{frame}{ Test of HE}
+
+Consider the regression (with \( P(Z) \) known as \( P(D = 1 | Z) \)) and and B(z) is a proxy of E(Y(0)|Z):
+\[
+y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D - P(Z))(S(Z) - S) + u
+\]
+\[ B_Z = \hat{gC(Z)}  \text{ and }  P_Z  \text{  }   \text{ estimated with XGboost classififer }\]
+
+
+\begin{figure}[h!]
+    %\centering
+    \begin{minipage}[b]{0.45\textwidth}
+        
+       \begin{table}[h]
+    \centering
+    \begin{tabular}{l c c}
+        \hline
+        & \textbf{\(\hat\beta_2\) } & \textbf{CI} \\
+        \hline
+        Linear reg & -1.649 & [ -2.050, -1.245] \\
+        Elasticnet & -1.36 & [-1.962, -1.251] \\
+        \hline
+    \end{tabular}
+    \caption{Estimated \(\hat\beta_2\) coefficients on Dropout.}
+    \label{tab:beta2_estimates}
+\end{table}
+    \end{minipage}
+    \hspace{0.05\textwidth}
+    \begin{minipage}[b]{0.45\textwidth}
+        \begin{table}[h]
+    \centering
+    \begin{tabular}{l c c}
+        \hline
+        & \textbf{ (\(\hat\beta_2\))} & \textbf{CI} \\
+        \hline
+        Linear reg & -1.649 & [ -2.050, -1.245] \\
+        Elasticnet & -1.36 & [-1.962, -1.251] \\
+        \hline
+    \end{tabular}
+    \caption{Estimated \(\beta_2\) coefficients on graduating within 3 years}
+    \label{tab:beta2_estimates}
+\end{table}
+       
+    \end{minipage}
+    
+ \end{figure}   
+\end{frame}
+
+
+
+
+
+\begin{frame}{ Results}
+
+\begin{figure}[h!]  
+        \includegraphics[width=1\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
+
+ \end{figure}   
+\end{frame}
+
+
+
+\begin{frame}{results}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l c c}
+        \hline
+        \textbf{Variable} & \textbf{First Quintile (Low S(Z))} & \textbf{Last Quintile (High S(Z))} \\
+        \hline
+        Gender & 54.124 & 12.090 \\
+        Age at Enrollment & 30.966 & 20.149 \\
+        Previous Qualification (Grade) & 129.587 & 139.921 \\
+        Admission Grade & 123.785 & 134.141 \\
+        Mother’s Education & 9.266 & 22.486 \\
+        Father’s Education & 9.492 & 13.785 \\
+        \hline
+    \end{tabular}
+    \caption{Comparison of Characteristics Between First and Last Quintiles of S(Z)}
+    \label{tab:quintile_comparison}
+\end{table}
+
+
+
+
+ \textbf{Targeting students from disadvantaged backgrounds (older, lower parental education, and lower academic performance) could maximize its impact.}
+\end{frame}
+
+
+\begin{frame}{ Results}
+
+\begin{figure}[h!]  
+        \includegraphics[width=1\linewidth]{Tex_Pictures/HE_quintile_graduating.png} 
+
+ 
+ \end{figure}   
+\end{frame}
+
+
+
+\begin{frame}{results}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{l c c}
+        \hline
+        \textbf{Variable} & \textbf{First Quintile (Low S(Z))} & \textbf{Last Quintile (High S(Z))} \\
+        \hline
+        Gender & 16.140 & 49.379 \\
+        Age at Enrollment & 20.910 & 28.000 \\
+        Previous Qualification (Grade) & 138.814 & 130.789 \\
+        Admission Grade & 133.443 & 119.509 \\
+        Mother’s Education & 10.835 & 12.316 \\
+        Father’s Education & 7.449 & 11.299 \\
+        \hline
+    \end{tabular}
+    \caption{Comparison of Characteristics Between First and Last Quintiles of S(Z)}
+    \label{tab:quintile_comparison_2}
+\end{table}
+
+
+
+\textbf{Additional support beyond financial aid, such as mentoring or tutoring, may be needed for younger and more disadvantaged students}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % ---------------------------------------
 % Section HTE
 % ---------------------------------------
-\section{7. Heterogenous treatment effects}
+\section{9. Heterogenous treatment effects}
 
 \begin{frame}{Gender-based Heterogeneity Analysis}
 \vspace{5pt}
@@ -487,7 +788,7 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 % ---------------------------------------
 % Section Robustness and Sensitivity Analysis
 % ---------------------------------------
-\section{8. Robustness and Sensitivity Analysis}
+\section{10. Robustness and Sensitivity Analysis}
 
 
 \begin{frame}{Identifying Key Predictors of Student Outcomes using Feature Importance}
