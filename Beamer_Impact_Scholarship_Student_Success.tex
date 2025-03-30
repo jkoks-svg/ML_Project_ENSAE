@@ -82,26 +82,9 @@
 % Section PICO & RQ
 % ---------------------------------------
   
-  \section{2. PICO \& Research Question}
+ \section{2. Research Question \& PICO}
   
-  \begin{frame}{PICO Formulation}
-  \textbf{Population, Intervention, Comparison, Outcome}
-  	\begin{itemize}
-  		\item [P - ] Undergraduate students at a Portuguese university (N = 4,424), with data on demographics, socio-economic background, and prior academic performance.
-  		\item [I - ] Receiving a scholarship during university studies.
-  		\item [C - ] Students without scholarships, adjusted for observed confounders (grades, family background, gender, etc.).
-  		\item [O - ] Two binary outcomes observed 3 years after enrollment:
-  
-  	\begin{itemize}
-  		\item [1.] Dropout vs. Enrolled/Graduated
-  		\item [2.] Graduated vs. Dropout/Enrolled
-  	\end{itemize}
-  	
-  	\end{itemize}
-  \end{frame}
-
-  
-  \begin{frame}{Research Question}
+    \begin{frame}{Research Question}
     \begin{alertblock}{RQ1}
 	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
 \end{alertblock}
@@ -111,35 +94,39 @@
 \end{alertblock}
   \end{frame}
   
+  \begin{frame}{PICO Formulation}
+  \textbf{Population, Intervention, Comparison, Outcome}
+  	\begin{itemize}
+  		\item [\textbf{P} - ] Undergraduate students at a Portuguese university (N = 4,424), with data on \textit{demographics, socio-economic background, and prior academic performance}.
+  		\item [\textbf{I} - ] Receiving a \underline{scholarship} during university studies.
+  		\item [\textbf{C} - ] Students without scholarships adjusted for observed covariates \textit{(grades, family background, gender, etc.)}.
+  		\item [\textbf{O} - ] Two \underline{binary outcomes} observed 3 years after enrollment:
+  
+  	\begin{itemize}
+  		\item [1.] Dropout vs. Enrolled/Graduated
+  		\item [2.] Graduated vs. Dropout/Enrolled
+  	\end{itemize}
+  	
+  	\end{itemize}
+  \end{frame}
+  
 
 \section{3. Data Overview and Exploratory Analysis}
 
-\begin{frame}{The Data}
-	\textbf{Source}
-	\vspace{-8pt}
-	\begin{itemize}
-		\item [--] UCI Machine Learning Repository – Predict Students Dropout and Academic Success 
-	\end{itemize}
-	
-	\textbf{Scope}
-	\vspace{-8pt}
-	\begin{itemize}
-		\item [--] Administrative records from a Portuguese university $\rightarrow$ 4,424 undergraduate students across various degree programs
-	\end{itemize}
-	
-	\textbf{Observation Period}
-	\vspace{-8pt}
-	\begin{itemize}
-		\item [--] Students tracked for 3 years after enrollment.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Variables}
-\centering
-\renewcommand{\arraystretch}{1.4}
-
+\begin{frame}{The Dataset}
+\vspace{5pt}
+\raggedright
+\begin{tabular}{ll}
+\textbf{Source:} & UC Irvine Machine Learning Repository \\
+\textbf{Scope:}  & Administrative records from a Portuguese university \\
+                & $\rightarrow$ 4,424 undergraduate students \\
+                & $\rightarrow$ Students tracked 3 years after enrollment. \\
+\end{tabular}
+\begin{center}
+\vspace{5pt}
+\renewcommand{\arraystretch}{1.2}
 \begin{tabularx}{\textwidth}{X | X | X}
-\textbf{Outcome Variable} & \textbf{Treatment Variable} & \textbf{Covariates}  (Pre Treatment)\\[0.5ex]
+\textbf{Outcome Variable} & \textbf{Treatment Variable} & \textbf{Covariates}  (Pre-Treatment)\\[0.5ex]
 \hline \hline 
 Student status after 3 years: 
 \parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
@@ -160,7 +147,10 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}}
 
 \end{tabularx}
+
+\end{center}
 \end{frame}
+
 
 \begin{frame}{Outcome Variable}
 	\begin{center}
