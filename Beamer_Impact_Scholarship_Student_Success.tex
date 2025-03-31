@@ -53,7 +53,7 @@
 
   		\begin{itemize}
   		\item [$\rightarrow$] \textbf{High dropout rates} are a persistent issue in higher education, especially during the first years of study.
-  		\item [$\rightarrow$] \textbf{Timely graduation} is crucial for both students (career entry) and universities (funding, reputation
+  		\item [$\rightarrow$] \textbf{Timely graduation} is crucial for both students (career entry) and universities (funding, reputation)
   		\item [$\Rightarrow$] \textbf{Financial constraints} are a major barrier to academic success — especially for socio-economically disadvantaged students.
   	\end{itemize}
   \end{column}
@@ -78,7 +78,7 @@
   		  		\item [--] Their  \textbf{causal effect} on student outcomes is difficult to measure
   		  		\item [--] Many studies show correlations, but few rigorously identify causality.
    		\end{itemize}
-   		\item [$\rightarrow$] This study uses a \textbf{causal machine learning framework (DML)} to estimate the  \textbf{true effect of scholarships}, adjusting for observed confounders.
+   		\item [$\rightarrow$] This study uses a \textbf{causal machine learning framework (DML)} to estimate the  \textbf{effect of scholarships}, adjusting for observed confounders.
    		\item [$\rightarrow$] Findings can inform \textbf{policy decisions} on financial aid allocation and \textbf{targeting of support} for at-risk students.
   	\end{itemize}
   \end{frame}
@@ -123,9 +123,6 @@
 \raggedright
 \begin{tabular}{ll}
 \textbf{Source:} & UC Irvine Machine Learning Repository \\
-\textbf{Scope:}  & Administrative records from a Portuguese university \\
-                & $\rightarrow$ 4,424 undergraduate students \\
-                & $\rightarrow$ Students tracked 3 years after enrollment. \\
 \end{tabular}
 \begin{center}
 \vspace{5pt}
@@ -226,7 +223,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{columns}
 \end{frame}
 
-\begin{frame}{Covariate selection}
+\begin{frame}{Covariate Selection}
 
 	\textbf{37 features in the dataset, including one treatment and one target}
 	\vspace{10pt}
@@ -234,7 +231,7 @@ Received scholarship or not (\textit{Binary variable})
 	\begin{tabularx}{\textwidth}{X | X | X}
 	\textbf{Pre-treatment (14)}  & \textbf{Post-treatment (14)} & \textbf{Unsuitable (7)} \\[0.5ex]
 	\hline \hline 
-	\parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}
+	\parbox[t]{4cm}{\vspace{-8pt} \begin{itemize}
 	[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
     \item Academic performance before university
     \item Family background
@@ -244,13 +241,13 @@ Received scholarship or not (\textit{Binary variable})
 
 	&
 	\parbox[t]{4cm}{
-	\vspace{-12pt}
+	\vspace{-8pt}
 	\begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
     	\item Academic performance during university
     	\item Financial situation during university
 	\end{itemize}}
 	&
-	\parbox[t]{4cm}{\vspace{-12pt} 
+	\parbox[t]{4cm}{\vspace{-8pt} 
 	\begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
     	\item Marital status
     	\item Course selection
@@ -291,10 +288,10 @@ Received scholarship or not (\textit{Binary variable})
 \textbf{Double Post-Lasso Identifies the Causal Effect of Scholarships by Selecting Key Confounders}
 
 \begin{itemize}
-	\item[1.] Select controls for the outcome: Lasso regression of outcome $Y$ on covariates $X$ \\$\rightarrow$ \textit{selects predictors of student success}
-	\item[2.] Select controls for the treatment: Lasso regression of treatment $D$ (scholarship) on $X$ \\ $\rightarrow$ s\textit{elects predictors of scholarship assignment}
+	\item[1.] Select controls for the outcome: Lasso regression of outcome $Y$ \textit{(St. Status)} on covariates $X$ \\$\rightarrow$ \textit{selects predictors of student success}
+	\item[2.] Select controls for the treatment: Lasso regression of treatment $D$ \textit{(Scholarship)} on $X$ \\ $\rightarrow$ s\textit{elects predictors of scholarship assignment}
 	\item[3.] Union of selected covariates: Take the union of covariates from Steps 1 \& 2 \\ $\rightarrow$ \textit{ensures we control for all relevant confounders}
-	\item[4.] Final OLS Regression Regress $Y$ on $D$ and the selected covariates
+	\item[4.] Final OLS Regression Regress $Y$ \textit{(St. Status)} on $D$ \textit{(Scholarship)} and the selected covariates
 \end{itemize}
 
 \begin{itemize}
@@ -340,7 +337,7 @@ Received scholarship or not (\textit{Binary variable})
 \begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
 	\item Covariates selected by Lasso: Outcome model - 10, Treatment model - 9
 	\item Covariates in final union used for OLS: 12
-	\item Estimated ATE of Scholarship on Graduation: -0.2789 (s.e. 0.0169) (p-value 0.0000***)
+	\item Estimated ATE of Scholarship on Graduation: 0.2789 (s.e. 0.0169) (p-value 0.0000***)
 \end{itemize}
 \end{block}
 
