@@ -82,9 +82,26 @@
 % Section PICO & RQ
 % ---------------------------------------
   
- \section{2. Research Question \& PICO}
+  \section{2. PICO \& Research Question}
   
-    \begin{frame}{Research Question}
+  \begin{frame}{PICO Formulation}
+  \textbf{Population, Intervention, Comparison, Outcome}
+  	\begin{itemize}
+  		\item [P - ] Undergraduate students at a Portuguese university (N = 4,424), with data on demographics, socio-economic background, and prior academic performance.
+  		\item [I - ] Receiving a scholarship during university studies.
+  		\item [C - ] Students without scholarships, adjusted for observed confounders (grades, family background, gender, etc.).
+  		\item [O - ] Two binary outcomes observed 3 years after enrollment:
+  
+  	\begin{itemize}
+  		\item [1.] Dropout vs. Enrolled/Graduated
+  		\item [2.] Graduated vs. Dropout/Enrolled
+  	\end{itemize}
+  	
+  	\end{itemize}
+  \end{frame}
+
+  
+  \begin{frame}{Research Question}
     \begin{alertblock}{RQ1}
 	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
 \end{alertblock}
@@ -94,39 +111,35 @@
 \end{alertblock}
   \end{frame}
   
-  \begin{frame}{PICO Formulation}
-  \textbf{Population, Intervention, Comparison, Outcome}
-  	\begin{itemize}
-  		\item [\textbf{P} - ] Undergraduate students at a Portuguese university (N = 4,424), with data on \textit{demographics, socio-economic background, and prior academic performance}.
-  		\item [\textbf{I} - ] Receiving a \underline{scholarship} during university studies.
-  		\item [\textbf{C} - ] Students without scholarships adjusted for observed covariates \textit{(grades, family background, gender, etc.)}.
-  		\item [\textbf{O} - ] Two \underline{binary outcomes} observed 3 years after enrollment:
-  
-  	\begin{itemize}
-  		\item [1.] Dropout vs. Enrolled/Graduated
-  		\item [2.] Graduated vs. Dropout/Enrolled
-  	\end{itemize}
-  	
-  	\end{itemize}
-  \end{frame}
-  
 
 \section{3. Data Overview and Exploratory Analysis}
 
-\begin{frame}{The Dataset}
-\vspace{5pt}
-\raggedright
-\begin{tabular}{ll}
-\textbf{Source:} & UC Irvine Machine Learning Repository \\
-\textbf{Scope:}  & Administrative records from a Portuguese university \\
-                & $\rightarrow$ 4,424 undergraduate students \\
-                & $\rightarrow$ Students tracked 3 years after enrollment. \\
-\end{tabular}
-\begin{center}
-\vspace{5pt}
-\renewcommand{\arraystretch}{1.2}
+\begin{frame}{The Data}
+	\textbf{Source}
+	\vspace{-8pt}
+	\begin{itemize}
+		\item [--] UCI Machine Learning Repository – Predict Students Dropout and Academic Success 
+	\end{itemize}
+	
+	\textbf{Scope}
+	\vspace{-8pt}
+	\begin{itemize}
+		\item [--] Administrative records from a Portuguese university $\rightarrow$ 4,424 undergraduate students across various degree programs
+	\end{itemize}
+	
+	\textbf{Observation Period}
+	\vspace{-8pt}
+	\begin{itemize}
+		\item [--] Students tracked for 3 years after enrollment.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Variables}
+\centering
+\renewcommand{\arraystretch}{1.4}
+
 \begin{tabularx}{\textwidth}{X | X | X}
-\textbf{Outcome Variable} & \textbf{Treatment Variable} & \textbf{Covariates}  (Pre-Treatment)\\[0.5ex]
+\textbf{Outcome Variable} & \textbf{Treatment Variable} & \textbf{Covariates}  (Pre Treatment)\\[0.5ex]
 \hline \hline 
 Student status after 3 years: 
 \parbox[t]{4cm}{\vspace{-12pt} \begin{itemize}[label=--,leftmargin=1.2em,itemsep=1pt,topsep=2pt]
@@ -147,10 +160,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}}
 
 \end{tabularx}
-
-\end{center}
 \end{frame}
-
 
 \begin{frame}{Outcome Variable}
 	\begin{center}
@@ -282,7 +292,7 @@ Received scholarship or not (\textit{Binary variable})
 % ---------------------------------------
 \section{5. Causal Effect Estimation Using Double Post Lasso}
 
-\begin{frame}{Steps of the Double Post Lasso (DPL) Procedure}
+\begin{frame}{Steps of the DPL Procedure}
 \textbf{Double Post-Lasso Identifies the Causal Effect of Scholarships by Selecting Key Confounders}
 
 \begin{itemize}
@@ -298,7 +308,7 @@ Received scholarship or not (\textit{Binary variable})
 \vspace{-10pt}
 \end{frame}
 
-\begin{frame}{Results Double Post Lasso: RQ1 (Dropout)}
+\begin{frame}{Results DPL: RQ1 (Dropout)}
 \vspace{20pt}
     \begin{alertblock}{RQ1}
 	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
@@ -322,7 +332,7 @@ Received scholarship or not (\textit{Binary variable})
 
 \end{frame}
 
-\begin{frame}{Results Double Post Lasso: RQ2 (On-Time Graduation)}
+\begin{frame}{Results DPL: RQ2 (On-Time Graduation)}
 \vspace{20pt}
 \begin{alertblock}{RQ2}
 	Does receiving a scholarship \textbf{increase} the likelihood of \textbf{graduating} within 3 years?
@@ -351,7 +361,7 @@ Received scholarship or not (\textit{Binary variable})
 % ---------------------------------------
 \section{6. Causal Effect Estimation Using Double Machine Learning}
 
-\begin{frame}{Steps of the Double Machine Learning (DML) Procedure}
+\begin{frame}{Steps of the DML Procedure}
 \textbf{Double Machine Learning Estimates the Causal Effect Using Flexible ML Models}
 \vspace{-3pt}
 \begin{itemize}
@@ -373,7 +383,7 @@ Received scholarship or not (\textit{Binary variable})
 
 
 
-\begin{frame}{Results Double Machine Learning: RQ1 (Dropout)}
+\begin{frame}{Results DML: RQ1 (Dropout)}
 \vspace{20pt}
     \begin{alertblock}{RQ1}
 	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
@@ -397,7 +407,7 @@ Received scholarship or not (\textit{Binary variable})
 
 \end{frame}
 
-\begin{frame}{Results Double Machine Learning: RQ2 (On-Time Graduation)}
+\begin{frame}{Results DML: RQ2 (On-Time Graduation)}
 \vspace{20pt}
 \begin{alertblock}{RQ2}
 	Does receiving a scholarship \textbf{increase} the likelihood of \textbf{graduating} within 3 years?
@@ -428,9 +438,9 @@ Received scholarship or not (\textit{Binary variable})
 % MARIMAR SECTION
 % ---------------------------------------
 
-\section{7. Parameter/model selection for the statistical estimator}
+\section{7.Parameter/model selection for the statistical estimator (cross-validation)}
 
-\begin{frame}{STEPS}
+\begin{frame}{STEPS to build statistical estimator with CV}
 
 \begin{itemize}
     \item[1.] Data preprocessing
@@ -446,9 +456,9 @@ Received scholarship or not (\textit{Binary variable})
 \end{frame}
 
 
-\begin{frame}{RESULTS with cross validation}
+\begin{frame}{DML results (on dropout and on time-graduating) with cross validation}
 
-\vspace{20pt}
+\vspace{10pt}
 \begin{alertblock}{DML}
 	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
 	\item Estimated Treatment Effect on dropout: -0.201 VS -0.17,\\ with a wider confidence interval [-0.228, -0.173] VS   [-0.197, -0.143]
@@ -457,7 +467,7 @@ Received scholarship or not (\textit{Binary variable})
 	
 \end{itemize}
 \end{alertblock}
-
+\vspace{3pt}
 
 \begin{exampleblock}{Conclusion}
 \vspace{-2pt}
@@ -476,23 +486,27 @@ The effect appears stronger in absolute value, which suggests better handling of
 
 
 
-\begin{frame}{RESULTS with cross validation}
+\begin{frame}{DPL results (on dropout and on time-graduating) with cross validation}
 
-\vspace{20pt}
-\begin{alertblock}{DPL}
+\vspace{15pt}
+\begin{alertblock}{DPL VS DML }
 	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
-	\item Estimated Treatment Effect on dropout: -0.220 VS ,\\ with a wider confidence interval [-0.246, -0.194] VS   
-	\item Estimated Treatment Effect on graduate within 3 years:  0.313 VS ,\\ 
-    with a wider confidence interval [0.282, 0.344] VS .
+	\item Estimated Treatment Effect on dropout: -0.220 VS -0.201 ,\\ with a wider confidence interval [-0.246, -0.194] VS [-0.228, -0,173]   
+	\item Estimated Treatment Effect on graduate within 3 years:  0.313 VS 0.273,\\ 
+    with a wider confidence interval [0.282, 0.344] VS [0.240, 0.306] .
 
 \end{itemize}
 \end{alertblock}
-
+\vspace{5pt}
 
 \begin{exampleblock}{Conclusion}
 \vspace{-2pt}
-DML with Cross-Fitting  leads to stronger effects and more reliable inference. This method better controls for confounders and prevents overfitting, making it the \textbf{preferred approach for causal estimation} in this context.
+\begin{itemize}
 
+    \item [$\Rightarrow$]
+DML with Cross-Fitting  leads to stronger effects and more reliable inference. 
+\item [$\Rightarrow$] \\This method better controls for confounders and prevents overfitting, \\making it the \textbf{preferred approach for causal estimation} in this context.
+\end{itemize}
 \vspace{-3pt}
 	
 \end{exampleblock}
@@ -501,12 +515,18 @@ DML with Cross-Fitting  leads to stronger effects and more reliable inference. T
 \end{frame}
 
 
-\section{8. Heterogeneous Treatment Effects}
 
-\begin{frame}{STEPS}
 
-\textbf{RQ: Does the impact of scholarships differ for some subgroups of students? \\}
-subgroups defined by: gender, age at enrollment, previous qualification grade , admission grade, mother education and father education
+
+
+\section{8.Heterogeneous treatment effects: study the effect of the treatment on different subgroups of the population}
+
+\begin{frame}{STEPS to capture Heterogenous effect of treatment}
+ \begin{alertblock}{RQ}
+	\textbf{Does the impact of scholarships on dropout and on time graduating differ for some subgroups of students? \\}
+$\rightarrow$ subgroups defined by: gender, age at enrollment, previous qualification grade , admission grade, mother education and father education
+    
+	\end{alertblock}
 
 \begin{itemize}
     \item[1.] \textbf{Step 1}: Estimate the potential outcomes for the treatment and control groups using two separate learners (XGboost here).
@@ -531,7 +551,7 @@ Treatment Effect= gT(Z)- gC(Z) for each indicual. This is the raw treatment effe
 
 
 
-\begin{frame}{Intermediate results}
+\begin{frame}{Distribution of estimated individual effect of scholarship on our Target}
 
 \begin{figure}[h!]
     %\centering
@@ -559,7 +579,7 @@ Treatment Effect= gT(Z)- gC(Z) for each indicual. This is the raw treatment effe
 
 
 
-\begin{frame}{ Test of HE}
+\begin{frame}{ Statistical test of existing HE of Scholarship}
 
 Consider the regression (with \( P(Z) \) known as \( P(D = 1 | Z) \)) and and B(z) is a proxy of E(Y(0)|Z):
 \[
@@ -582,7 +602,7 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
         Elasticnet & -1.36 & [-1.962, -1.251] \\
         \hline
     \end{tabular}
-    \caption{Estimated \(\hat\beta_2\) coefficients on Dropout.}
+    \caption{ \(\hat\beta_2\) coefficients on Dropout.}
     \label{tab:beta2_estimates}
 \end{table}
     \end{minipage}
@@ -598,30 +618,39 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
         Elasticnet & -1.36 & [-1.962, -1.251] \\
         \hline
     \end{tabular}
-    \caption{Estimated \(\beta_2\) coefficients on graduating within 3 years}
+    \caption{ \(\hat \beta_2\) coefficients on graduating within 3 years}
     \label{tab:beta2_estimates}
 \end{table}
        
     \end{minipage}
-    
+
+ \end{figure}  
+
+ \begin{exampleblock}{Conclusion}
+\vspace{-1pt}
+\begin{itemize}
+    \item [$\Rightarrow$]
+\textbf{ \(\hat{\beta_2}\) is statistically significant.}
+%\item [$\Rightarrow$] S(Z) is a \textbf{signal} for the existing of  HE among  subgroups .
+\end{itemize}
+\vspace{-3pt}
+	
+\end{exampleblock}
+
+\end{frame}
+
+
+\begin{frame}{ HE on dropout among subgroups (quintile of estimated individual effect }
+
+\begin{figure}[h]  
+        \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
+
  \end{figure}   
 \end{frame}
 
 
 
-
-
-\begin{frame}{Results}
-
-\begin{figure}[h!]  
-        \includegraphics[width=0.8\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
-
- \end{figure}   
-\end{frame}
-
-
-
-\begin{frame}{Results}
+\begin{frame}{Description of the subgroup}
 \begin{table}[h]
     \centering
     \begin{tabular}{l c c}
@@ -641,16 +670,24 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 \end{table}
 
 
-
-
+ \begin{exampleblock}{Conclusion}
+\vspace{-1pt}
+\begin{itemize}
+    \item [$\Rightarrow$]
  \textbf{Targeting students from disadvantaged backgrounds (older, lower parental education, and lower academic performance) could maximize its impact.}
+\end{itemize}
+\vspace{-3pt}
+	
+\end{exampleblock}
+
+
 \end{frame}
 
 
-\begin{frame}{Results}
+\begin{frame}{ HE on Time graduating among subgroups (quintile of estimated individual effect }
 
 \begin{figure}[h!]  
-        \includegraphics[width=0.8\linewidth]{Tex_Pictures/HE_quintile_graduating.png} 
+        \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_graduating.png} 
 
  
  \end{figure}   
@@ -658,7 +695,7 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 
 
 
-\begin{frame}{Results}
+\begin{frame}{Description of the subgroup}
 \begin{table}[h]
     \centering
     \begin{tabular}{l c c}
@@ -677,11 +714,61 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
     \label{tab:quintile_comparison_2}
 \end{table}
 
-
-
+ \begin{exampleblock}{Conclusion}
+\vspace{-1pt}
+\begin{itemize}
+    \item [$\Rightarrow$]
 \textbf{Additional support beyond financial aid, such as mentoring or tutoring, may be needed for younger and more disadvantaged students}
+\end{itemize}
+\vspace{-3pt}
+	
+\end{exampleblock}
+
+
 \end{frame}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ---------------------------------------
+% Section HTE
+% ---------------------------------------
+\section{9. Heterogenous treatment effects}
 
 \begin{frame}{Gender-based Heterogeneity Analysis}
 \vspace{5pt}
@@ -732,180 +819,146 @@ Scholarships \textbf{reduce dropout} and \textbf{improve graduation} outcomes fo
 % ---------------------------------------
 % Section Robustness and Sensitivity Analysis
 % ---------------------------------------
-\section{9. Robustness and Sensitivity Analysis}
+\section{10. Robustness and Sensitivity Analysis}
 
 
-\begin{frame}{Check 1: Identifying Key Predictors of Student Outcomes using Feature Importance}
-\centering
+\begin{frame}{Identifying Key Predictors of Student Outcomes using Feature Importance}
 \textbf{Random Forest Feature Importance (Dropout and Scholarship Eligibility)}
-
-\vspace{5pt}
-
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\centering
-\includegraphics[width=\linewidth]{Tex_Pictures/feature_dropout}
-
-\end{column}
-\begin{column}{0.5\textwidth}
-\centering
-\includegraphics[width=\linewidth]{Tex_Pictures/feature_scholarship}
-\end{column}
-\end{columns}
 \vspace{8pt}
-\textbf{$\Rightarrow$ Random Forest Reveals Academic Preparation as Main Predictor of Student Outcomes} \\
-\textit{our primary variables of interest - \textbf{scholarship holding} and \textbf{gender} - appear less significant.}
 
-\end{frame}
-
-\begin{frame}{Check 1: Identifying Key Predictors of Student Outcomes using Feature Importance}
 \begin{columns}
-\begin{column}{0.65\textwidth}
-\vspace{10pt} \\
-\textbf{Main Finding}
-\begin{itemize}
-	\item [$\Rightarrow$] Academic performance (e.g., \textit{admission grade}) dominates prediction, while variables like \textbf{scholarship status} and \textbf{gender} show lower importance.
-\end{itemize}
-
-\vspace{5pt}   
-   
-\textbf{Discussion}
-\begin{itemize}[label=--, itemsep=1pt]
-    \item Academic and financial variables likely influence outcomes \textit{indirectly}.
-    \item Random Forest prioritizes predictive power, not causal relevance.
-    \item For \textbf{direct effects}, we rely on causal models like DoubleML and DPL.
-\end{itemize}
-
-
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_dropout} \\
+\small Dropout Prediction
 \end{column}
-\begin{column}{0.35\textwidth}
-\raggedright
-\hspace*{-0.6cm}
-\vspace*{-0.9cm}
-\includegraphics[width=1.05\linewidth]{Tex_Pictures/feature_importance_combined}
+\begin{column}{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{Tex_Pictures/feature_scholarship} \\
+\small Scholarship Eligibility
 \end{column}
 \end{columns}
-
 \end{frame}
 
-\begin{frame}{Check 2: Sensitivity to Covariate Selection}
-
-\textbf{Are scholarship effects robust to different model specifications?} 
-
-We re-estimate treatment effects using DoubleML while varying covariate sets:
-\begin{itemize}[label=--, itemsep=1pt]
-    \item Covariates grouped into: \textit{academic preparation, family background, economic context, and demographics.}
-    \item Estimates remain statistically significant across all models for both \textbf{RQ1 (Dropout)} and \textbf{RQ2 (Graduation)}.
-    \item Effects are \textbf{strongest} when controlling for \textbf{economic and parental background}.
-\end{itemize}
-\vspace{5pt}
-\begin{block}{Conclusion}
-Scholarship benefits are particularly pronounced for structurally disadvantaged students — supporting the role of financial aid in promoting equity in higher education.
+\begin{frame}{Identifying Key Predictors of Student Outcomes using Feature Importance}
+\begin{block}{Feature Importance Analysis}
+   
+    The feature importance chart highlights academic performance (e.g., admission grades) as the strongest predictor of student outcomes. However, our primary variables of interest—\textbf{scholarship holding} and \textbf{gender}—appear less significant.
 \end{block}
 
+
+\begin{itemize}[label=--]
+    \item This is expected, as these variables likely affect student success \textit{indirectly}, mediated by academic factors and financial barriers.
+    \item Random Forest prioritizes features that produce the best splits; hence, academic performance dominates.
+    \item To assess \textbf{direct causal effects}, we exclude semester grades and proceed with causal inference models focused on scholarship and gender.
+\end{itemize}
 \end{frame}
 
+\begin{frame}{Sensitivity Analysis: Covariate Sets}
+\textbf{How robust are our results to different model specifications?}
+\vspace{5pt}
 
-\begin{frame}{Check 2: Sensitivity to Covariate Selection: Visualizing}
-\centering
-\textbf{Treatment effect estimates across different covariate sets.}\\
-\vspace{15pt}
+We estimate the treatment effect using DoubleML while varying the covariates included in the model:
+
+\begin{itemize}[label=--,itemsep=1pt]
+    \item Academic preparation
+    \item Family background
+    \item Economic context
+    \item Demographic controls (age, gender, etc.)
+    \item Combined and full models
+\end{itemize}
+
+\vspace{5pt}
+\textbf{Result:} The direction and significance of the effect remain stable, though the magnitude varies. The strongest effects are seen when economic and family background variables are included.
+\end{frame}
+
+\begin{frame}{Sensitivity Analysis: Visual}
+\centering{
+\textbf{Treatment effect estimates across different covariate sets.}}\\
+\vspace{30pt}
 
 \begin{columns}
+
 \begin{column}{0.5\textwidth}
 \centering
 \includegraphics[width=1\linewidth]{Tex_Pictures/sensitivityrq1.png} \\
+\small RQ1: Dropout
 \end{column}
 \begin{column}{0.5\textwidth}
 \centering
 \includegraphics[width=1\linewidth]{Tex_Pictures/sensitivityrq2.png} \\
+\small RQ2: On-Time Graduation
 \end{column}
 \end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Placebo Test (RQ1 \& RQ2)}
+\textbf{What if scholarship assignments were random?}
+\vspace{10pt}
+
+\begin{itemize}[label=--,itemsep=1pt]
+    \item We randomly permute the treatment variable (scholarship).
+    \item Re-run DML using this randomized “placebo” treatment.
+    \item Expectation: no causal effect should be detected.
+\end{itemize}
+
+\vspace{10pt}
+\textbf{Result:} Estimated placebo effects for dropout and graduation are close to zero and statistically insignificant.
+
 \vspace{5pt}
-$\Rightarrow$ \textbf{The direction and significance of the effect remain stable, though the magnitude varies.}\\
-\textit{The strongest effects are seen when economic and family background variables are included.}
+$\Rightarrow$ Supports that original results are unlikely to be due to spurious correlation or overfitting.
 \end{frame}
 
-\begin{frame}{Check 3: Placebo Test — Are Our Effects Spurious?}
-\begin{columns}[t]
 
-\begin{column}{0.5\textwidth}
-\newline
-\textbf{What if scholarships were assigned randomly?}
-\begin{itemize}[label=--, itemsep=1pt]
-    \item We ran a \textbf{placebo test} by randomly reassigning the scholarship variable.
-    \item The fake treatment mimics the real distribution but has no connection to outcomes.
-    \item We re-estimated effects using DML to check for spurious patterns.
-\end{itemize}
-
-\end{column}
-
-\begin{column}{0.45\textwidth}
-\newline
-\textbf{Findings:}
-\begin{itemize}[label=--, itemsep=1pt]
-    \item Dropout: placebo ATE $\approx$ \textbf{+0.02}, (s.e. $\approx$ 0.015), \textit{p} $\approx$ 0.23
-    \item Graduation: placebo ATE $\approx$ \textbf{–0.01}, (s.e. $\approx$ 0.017), \textit{p} $\approx$ 0.68
-    \item [$\Rightarrow$] Effects are statistically insignificant and close to zero.
-\end{itemize}
-\end{column}
-\end{columns}
-\vspace{10pt}
-\begin{block}{Conclusion}
-The placebo test confirms that our original estimates are not driven by spurious patterns or overfitting — supporting the credibility of our causal results.
-\end{block}
-\end{frame}
-
-\begin{frame}{Summary: Robustness and Sensitivity Analysis}
-\textbf{Robustness Checks Support the Causal Impact of Scholarships}
-\vspace{6pt}
-\begin{itemize}[label=--, itemsep=3pt]
-    \item Effects are \textbf{statistically significant and consistent} across model specifications.
-    \item Strongest impact observed among students with \textbf{lower socio-economic background}.
-    \item \textbf{Placebo test} yields no effect $\Rightarrow$ supports validity of causal claims.
+\begin{frame}{Robustness Summary}
+\begin{itemize}[label=--,itemsep=1pt]
+    \item Treatment effects are statistically significant and stable across covariate sets.
+    \item Stronger effects seen for students from lower socio-economic backgrounds.
+    \item No significant treatment effect detected in placebo test $\rightarrow$ supports causal interpretation.
 \end{itemize}
 
 \vspace{10pt}
 \begin{block}{Conclusion}
-Scholarships have a robust and meaningful causal impact on student outcomes — supported by multiple model checks and falsification tests.
+Our results are robust to model specification and randomization checks, suggesting that scholarships genuinely impact student success.
 \end{block}
 
 \end{frame}
 
-
-\section{10. Conclusion}
+\section{9. Conclusion}
 
 \begin{frame}{Conclusion: Causal Impact of Scholarships on Student Success}
 	
 	\textbf{Objective} 
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\rightarrow$]Estimate the causal effect of scholarships on dropout and graduation within 3 years 
-	\item[$\rightarrow$]Data: 4,424 students from a Portuguese university (UCI dataset) 
+	\item[\rightarrow]Estimate the causal effect of scholarships on dropout and graduation within 3 years 
+	\item[\rightarrow]Data: 4,424 students from a Portuguese university (UCI dataset) 
 	\end{itemize}
 	\vspace{-5pt}
 	
 	\textbf{Methods}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\rightarrow$]Double Post-Lasso: Data-driven covariate selection + OLS
-	\item[$\rightarrow$]Double Machine Learning: Cross-fitting + ML models (Lasso, Random Forest)
+	\item[\rightarrow]Double Post-Lasso: Data-driven covariate selection + OLS
+	\item[\rightarrow]Double Machine Learning: Cross-fitting + ML models (Lasso, Random Forest)
 	\end{itemize}
 	\vspace{-5pt}
 	
 	\textbf{Main Results}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\rightarrow$]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
-	\item[$\rightarrow$]Robust across estimators, regularization, covariate sets, Placebo test confirms validity
+	\item[\rightarrow]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
+	\item[\rightarrow]Robust across estimators, regularization, covariate sets, Placebo test confirms validity
 	\end{itemize}
 	\vspace{-5pt}
 
 	\textbf{Conclusion}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\Rightarrow$]Scholarships causally improve student outcomes: Strong evidence for policy effectiveness.
-	\item[$\Rightarrow$]Supports the expansion of financial aid as a tool to reduce dropout and boost completion.
+	\item[\Rightarrow]Scholarships causally improve student outcomes: Strong evidence for policy effectiveness.
+	\item[\Rightarrow]Supports the expansion of financial aid as a tool to reduce dropout and boost completion.
 	\end{itemize}
 	
 \end{frame}
