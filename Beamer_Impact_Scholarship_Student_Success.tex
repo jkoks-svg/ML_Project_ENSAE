@@ -23,6 +23,11 @@
 \setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{normal text}{bg=white}
 
+\usepackage{etoolbox}
+\newcommand{\appendixstyle}{
+  \setbeamercolor{background canvas}{bg=gray!10}
+}
+
 \title{Causal Inference Project:\\ Impact of Scholarships on Student Success}
 \date{April 04th, 2025}
 \author{Anushka Mukherjee, Lucie Marimar, Jort Koks, Jakob Sarrazin}
@@ -299,6 +304,7 @@ Received scholarship or not (\textit{Binary variable})
 \end{frame}
 
 \begin{frame}{Results Double Post Lasso: RQ1 (Dropout)}
+\hypertarget{main-slide}{}
 \vspace{20pt}
     \begin{alertblock}{RQ1}
 	Does receiving a scholarship \textbf{reduce} the likelihood of \textbf{dropping out} within 3 years?
@@ -319,10 +325,12 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \vspace{-3pt}
 \end{exampleblock}
-
+\raggedleft
+\hyperlink{appendix-slide}{\beamergotobutton{Illustrations}}
 \end{frame}
 
 \begin{frame}{Results Double Post Lasso: RQ2 (On-Time Graduation)}
+\hypertarget{main-slide2}{}
 \vspace{20pt}
 \begin{alertblock}{RQ2}
 	Does receiving a scholarship \textbf{increase} the likelihood of \textbf{graduating} within 3 years?
@@ -343,7 +351,8 @@ Received scholarship or not (\textit{Binary variable})
 \end{itemize}
 \vspace{-3pt}	
 \end{exampleblock}
-
+\raggedleft
+\hyperlink{appendix-slide2}{\beamergotobutton{Illustrations}}
 \end{frame}
 
 % ---------------------------------------
@@ -440,7 +449,7 @@ Received scholarship or not (\textit{Binary variable})
     where \( w_j \)  and \( v_j \) are learned through LassoCV.
         \item A robust approach to estimate \( E[Y|X] \) and \( E[D|X] \).
     \item[4.] DML estimates 
-    \item But for DPL just cross validation with 10 repetitions
+    \item But for DPL just cross-validation with 10 repetitions
 \end{itemize}
     
 \end{frame}
@@ -909,7 +918,31 @@ Scholarships have a robust and meaningful causal impact on student outcomes — 
 	\end{itemize}
 	
 \end{frame}
-  
+
+\appendix
+
+\begin{frame}
+  \frametitle{Appendix 1: Illustration of DPL Model Selection RQ1 (dropout)}
+  \hypertarget{appendix-slide}{}
+  \vspace{10pt}
+  \centering
+  \includegraphics[width=1\linewidth]{Tex_Pictures/DPL_RQ1_model_selection}
+  \vfill
+  \raggedleft
+  \hyperlink{main-slide}{\beamergotobutton{Back to the main slide}}
+\end{frame}  
+
+\begin{frame}
+  \frametitle{Appendix 2: Illustration of DPL Model Selection RQ2 (graduating)}
+  \hypertarget{appendix-slide2}{}
+  \vspace{10pt}
+  \centering
+  \includegraphics[width=1\linewidth]{Tex_Pictures/DPL_RQ2_model_selection}
+  \vfill
+  \raggedleft
+  \hyperlink{main-slide2}{\beamergotobutton{Back to the main slide}}
+\end{frame}
+
 \end{document}
 
 
