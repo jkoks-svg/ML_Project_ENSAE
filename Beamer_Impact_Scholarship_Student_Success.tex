@@ -459,9 +459,9 @@ Received scholarship or not (\textit{Binary variable})
 \vspace{10pt}
 \begin{alertblock}{DML}
 	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
-	\item \textbf{RQ1:} Estimated Treatment Effect on dropout: -0.201*** \textit{vs -0.17***},\\ $\rightarrow$ wider confidence interval [-0.228, -0.173] \textit{vs [-0.197, -0.143]}
-	\item \textbf{RQ2:} Estimated Treatment Effect on graduate within 3 years:  0.273*** \textit{vs 0.235***},\\ 
-    $\rightarrow$ wider confidence interval [0.240, 0.306] \textit{vs [0.203, 0.267]}.
+	\item \textbf{RQ1:} Estimated Treatment Effect on dropout: -0.201*** vs -0.17***,\\ $\rightarrow$ \textit{Confidence Interval: [-0.228, -0.173] vs [-0.197, -0.143]}
+	\item \textbf{RQ2:} Estimated Treatment Effect on graduate within 3 years:  0.273*** vs 0.235***,\\ 
+    $\rightarrow$ \textit{Confidence Interval: [0.240, 0.306] vs [0.203, 0.267]}.
 	
 \end{itemize}
 \end{alertblock}
@@ -471,7 +471,7 @@ Received scholarship or not (\textit{Binary variable})
 
 The effect appears stronger in absolute value, which suggests better handling of data variability through stacking and cross-fitting. \\
 \vspace{-4pt}
-\begin{itemize}
+\begin{itemize}[label=--, itemsep=1pt]
     \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{decreases} the probability of \textbf{dropout} by 20.1 \%-points.
     \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{increases} the probability of \textbf{graduating} within \\ 3 years by 27.5 \%-points.
 \end{itemize}
@@ -489,18 +489,17 @@ The effect appears stronger in absolute value, which suggests better handling of
 \vspace{10pt}
 \begin{alertblock}{DPL vs DML}
 \begin{itemize}[label=--, itemsep=2pt]
-    \item \textbf{RQ1 (Dropout):} Estimated Treatment Effect: -0.220 vs -0.201 \\
-    Confidence Interval: [-0.246, -0.194] vs [-0.228, -0.173]
-    
-    \item \textbf{RQ2 (Graduate in 3 Years):} Estimated Treatment Effect: 0.313 vs 0.273 \\
-    Confidence Interval: [0.282, 0.344] vs [0.240, 0.306]
+    \item \textbf{RQ1 (Dropout):} Estimated Treatment Effect: -0.220*** vs -0.201*** \\
+    $\rightarrow$ \textit{Confidence Interval: [-0.246, -0.194] vs [-0.228, -0.173]}
+    \item \textbf{RQ2 (Graduate in 3 Years):} Estimated Treatment Effect: 0.313*** vs 0.273 \\
+    $\rightarrow$ \textit{Confidence Interval: [0.282, 0.344] vs [0.240, 0.306]}
 \end{itemize}
 \end{alertblock}
 
 \vspace{5pt}
 \begin{exampleblock}{Conclusion}
 \vspace{-2pt}
-\begin{itemize}
+\begin{itemize}[label=--, itemsep=1pt]
     \item[$\Rightarrow$] DML with Cross-Fitting produces stronger effects and tighter inference.
     \item[$\Rightarrow$] It better controls for confounding and avoids overfitting,\\ making it the \textbf{preferred approach for causal estimation}.
 \end{itemize}
@@ -903,35 +902,35 @@ Scholarships have a robust and meaningful causal impact on student outcomes — 
 	
 	\textbf{Objective} 
 	\vspace{-5pt}
-	\begin{itemize}
-	\item[$\rightarrow$]Estimate the causal effect of scholarships on dropout and graduation within 3 years 
-	\item[$\rightarrow$]Data: 4,424 students from a Portuguese university (UCI dataset) 
-	\end{itemize}
+\begin{itemize}
+    \item[$\rightarrow$] Estimate the causal impact of scholarships on dropout and timely graduation
+    \item[$\rightarrow$] Data: 4,424 students from a Portuguese university (UCI dataset)
+\end{itemize}
 	\vspace{-5pt}
 	
 	\textbf{Methods}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\rightarrow$]Double Post-Lasso: Data-driven covariate selection + OLS
-	\item[$\rightarrow$]Double Machine Learning: Cross-fitting + ML models (Lasso, Random Forest)
+	\item[$\rightarrow$] \textbf{Double Post-Lasso:} Data-driven covariate selection + OLS
+    \item[$\rightarrow$] \textbf{Double Machine Learning:} Cross-fitting with Lasso and Random Forest
 	\end{itemize}
 	\vspace{-5pt}
 	
 	\textbf{Main Results}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\Rightarrow$]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
-	\item[$\rightarrow$]HE with neg. effects on older with lower parental educ. and lower pre-use performance
-	\item[$\rightarrow$]Robust across estimators, regularization, covariate sets, Placebo test confirms validity
+	    \item[$\Rightarrow$] Effect of Scholarship on - \underline{Dropout:} $\searrow$ 17–20 pp; \underline{Graduation:} $\nearrow$ 23–28 pp
+    \item[$\rightarrow$] HTE: Stronger effects for older students with lower parental educ and weaker prior grades
+    \item[$\rightarrow$] Results robust across models, specifications, and confirmed by placebo test
 	\end{itemize}
 	\vspace{-5pt}
 
 	\textbf{Conclusion}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\Rightarrow$]Scholarships causally improve student outcomes: Strong evidence for policy effectiveness.
-	\item[$\Rightarrow$]Supports the expansion of financial aid as a tool to reduce dropout and boost completion.
-	\end{itemize}
+	 \item[$\Rightarrow$] Scholarships have a strong, positive \textit{causal} effect on student success
+    \item[$\Rightarrow$] Supports expanding financial aid to reduce dropout and increase completion	
+    \end{itemize}
 	
 \end{frame}
 
