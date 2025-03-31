@@ -205,15 +205,15 @@ Received scholarship or not (\textit{Binary variable})
 	 \begin{columns}
 	\begin{column}{0.58\textwidth}
 
-\textbf{Three relevant paths between \\ Treatment (incoming) \& Outcome}
-\small{
+\textbf{Three relevant paths between \\ Treatment \& Outcome}
+
 \begin{itemize}
-    \item [1.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Outcome
-    \item [2.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\rightarrow$ Outcome
-    \item [3.] Treatment (incoming) $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\leftarrow$ Treatment (outgoing) $\rightarrow$ Outcome
-\end{itemize}}
+    \item [1.] Treatment $\leftarrow$ Covariates $\rightarrow$ Outcome
+    \item [2.] Treatment $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\rightarrow$ Outcome
+    \item [3.] Treatment $\leftarrow$ Covariates $\rightarrow$ Post-Treatment $\leftarrow$ Treatment $\rightarrow$ Outcome
+\end{itemize}
 \begin{itemize}
-	\item [$\Rightarrow$] All paths are blocked simultaneously by conditioning on the covariates, but NOT conditioning on the post-treatment effects. This could open collider paths through unobserved features. 
+	\item [$\Rightarrow$] All paths are blocked simultaneously by conditioning on the covariates, but NOT conditioning on the post-treatment effects.
 \end{itemize}
   \end{column}
 
@@ -516,7 +516,7 @@ The effect appears stronger in absolute value, which suggests better handling of
 \begin{frame}{Steps to Capture the Heterogenous Effect of Treatment}
 \textbf{Key Question:} \\
 \textbf{Does the impact of scholarships on dropout and graduation differ across student subgroups?}
-\vspace{-4pt}
+\vspace{-8pt}
 \begin{itemize}
 	\item [$\rightarrow$]  \textit{gender, age at enrollment, previous qualification grade, admission grade, mother \& father educ}
 \end{itemize}
@@ -541,32 +541,29 @@ The effect appears stronger in absolute value, which suggests better handling of
 \end{frame}
 
 
-\begin{frame}{Distribution of estimated individual effect of scholarship on our Target}
-
-\begin{figure}[h!]
-    %\centering
-    \begin{minipage}[b]{0.45\textwidth}
-        \caption{Distribution of estimated HE on droupout}
-        \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_of_TE_drop_out.png}
+\begin{frame}{Distribution of Estimated Individual Effect of Scholarship on our Target}
+\vspace{10pt}
+\centering
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\centering
+	\hspace*{-0.5cm}
+     \includegraphics[width=1.1\linewidth]{Tex_Pictures/Distribution_of_TE_drop_out.png}
 		$\widehat{CATE}(X)$ = -0.215
-       
-    \end{minipage}
-    \hspace{0.05\textwidth}
-    \begin{minipage}[b]{0.45\textwidth}
-        %\centering
-        \caption{Distribution of estimated HE on graduating}
-        \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_TE_graduate.png}
+\end{column}
+\begin{column}{0.5\textwidth}
+\centering
+	\hspace*{-0.5cm}
+    \includegraphics[width=1.1\linewidth]{Tex_Pictures/Distribution_TE_graduate.png}
+    $\widehat{CATE}(X)$ = 0.283
+\end{column}
+\end{columns}
 
-         $\widehat{CATE}(X)$ = 0.283
-       
-    \end{minipage}
-    \centering \\
-    $\Rightarrow$ \textbf{Estimated Individual Effects supports our thesis\\of heterogeneous treatment effects for both RQ1 \& RQ2}
+\vspace{5pt}
+$\Rightarrow$ Estimated Individual Effects \textbf{supports our thesis\\of heterogeneous treatment effects} \textit{for both RQ1 \& RQ2}
 
- \end{figure}   
+ 
 \end{frame}
-
-
 
 
 \begin{frame}{Statistical Test of Existing HE of Scholarship}
@@ -621,43 +618,41 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 \end{frame}
 
 
-\begin{frame}{HE on Dropout among Subgroups}
+\begin{frame}{Heterogeneous Effects on Dropout among Subgroups}
+\vspace{10pt}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\small
+\textbf{Comparison of Characteristics} \\ Between First and Last Quintiles of S(Z) \\
+\vspace{5pt}
+\begin{tabular}{l c c}
+    \hline
+    \textbf{Variable} & \textbf{First Quintile} & \textbf{Last Quintile} \\ & (Low S(Z)) & (High S(Z)) \\
+    \hline
+    Gender & 54.124 & 12.090 \\
+    Age at Enrollment & 30.966 & 20.149 \\
+    Previous Qualification & 129.587 & 139.921 \\
+    Admission Grade & 123.785 & 134.141 \\
+    Mother’s Education & 9.266 & 22.486 \\
+    Father’s Education & 9.492 & 13.785 \\
+    \hline
+\end{tabular}
+\end{column}
+\begin{column}{0.4\textwidth}
+\hspace*{-0.1cm}
+	\includegraphics[width=1.1\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
+\end{column}
+\end{columns}
 
-\begin{figure}[h]  
-        \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
+\vspace{5pt}
 
- \end{figure}   
-\end{frame}
-
-
-
-\begin{frame}{Description of the Subgroup}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{l c c}
-        \hline
-        \textbf{Variable} & \textbf{First Quintile (Low S(Z))} & \textbf{Last Quintile (High S(Z))} \\
-        \hline
-        Gender & 54.124 & 12.090 \\
-        Age at Enrollment & 30.966 & 20.149 \\
-        Previous Qualification (Grade) & 129.587 & 139.921 \\
-        Admission Grade & 123.785 & 134.141 \\
-        Mother’s Education & 9.266 & 22.486 \\
-        Father’s Education & 9.492 & 13.785 \\
-        \hline
-    \end{tabular}
-    \caption{Comparison of Characteristics Between First and Last Quintiles of S(Z)}
-    \label{tab:quintile_comparison}
-\end{table}
-
-
- \begin{exampleblock}{Conclusion}
-\vspace{-1pt}
+\begin{exampleblock}{Heterogeneous Effects on Graduation among Subgroups}
+\vspace{-4pt}
 \begin{itemize}
     \item [$\Rightarrow$]
- \textbf{Targeting students from disadvantaged backgrounds (older, lower parental education, and lower academic performance) could maximize its impact.}
+ \textbf{Targeting students from disadvantaged backgrounds} \textit{(older, lower parental education, \\ and lower academic performance)} \textbf{could maximize its impact.}
 \end{itemize}
-\vspace{-3pt}
+\vspace{-4pt}
 	
 \end{exampleblock}
 
@@ -665,44 +660,41 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 \end{frame}
 
 
-\begin{frame}{HE on Time Graduating among Subgroups}
-
-\begin{figure}[h!]  
-        \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_graduating.png} 
-
- 
- \end{figure}   
-\end{frame}
-
-
 
 \begin{frame}{Description of the subgroup}
-\begin{table}[h]
-    \centering
+\vspace{10pt}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\small
+    \textbf{Comparison of Characteristics} \\ Between First and Last Quintiles of S(Z) \\
+\vspace{5pt}
     \begin{tabular}{l c c}
         \hline
-        \textbf{Variable} & \textbf{First Quintile (Low S(Z))} & \textbf{Last Quintile (High S(Z))} \\
+    \textbf{Variable} & \textbf{First Quintile} & \textbf{Last Quintile} \\ & (Low S(Z)) & (High S(Z)) \\
         \hline
         Gender & 16.140 & 49.379 \\
         Age at Enrollment & 20.910 & 28.000 \\
-        Previous Qualification (Grade) & 138.814 & 130.789 \\
+        Previous Qualification & 138.814 & 130.789 \\
         Admission Grade & 133.443 & 119.509 \\
         Mother’s Education & 10.835 & 12.316 \\
         Father’s Education & 7.449 & 11.299 \\
         \hline
     \end{tabular}
-    \caption{Comparison of Characteristics Between First and Last Quintiles of S(Z)}
-    \label{tab:quintile_comparison_2}
-\end{table}
+\end{column}
+\begin{column}{0.4\textwidth}
+\hspace*{-0.1cm}
+	\includegraphics[width=1.1\linewidth]{Tex_Pictures/HE_quintile_graduating.png}
+\end{column}
+\end{columns}
+
 
  \begin{exampleblock}{Conclusion}
-\vspace{-1pt}
+\vspace{-4pt}
 \begin{itemize}
     \item [$\Rightarrow$]
-\textbf{Additional support beyond financial aid, such as mentoring or tutoring, may be needed for younger and more disadvantaged students}
+\textbf{Additional support beyond financial aid}, such as mentoring or tutoring, \textbf{may be \\ needed for younger and more disadvantaged students}
 \end{itemize}
-\vspace{-3pt}
-	
+\vspace{-4pt}
 \end{exampleblock}
 
 
