@@ -437,42 +437,41 @@ Received scholarship or not (\textit{Binary variable})
 % MARIMAR SECTION
 % ---------------------------------------
 
-\section{7.Parameter/model selection for the statistical estimator (cross-validation)}
+\section{7. Parameter selection for the estimator}
 
-\begin{frame}{STEPS to build statistical estimator with CV}
-
+\begin{frame}{Steps to Build Statistical Estimator with CV}
+\textbf{Process to Cross Validate the DML estimates}
 \begin{itemize}
     \item[1.] Data preprocessing
-
-    \item[2.] 3 Learners for outcomes (Linear, Lasso, Randomforest) and 3 others learners for treatment (Logistic, Lasso, random forest classifier)
-    \item[3.] Combines learners to improve predictions with stacking regressor: \[         \hat{Y_i} = \sum_{j=1}^{3} w_j \hat{Y}_{ij}      \text{  }  \text{ and } \text{  }  \hat{D_i} = \sum_{j=1}^{3} v_j \hat{D}_{ij}         \] 
-    where \( w_j \)  and \( v_j \) are learned through LassoCV.
-        \item A robust approach to estimate \( E[Y|X] \) and \( E[D|X] \).
-    \item[4.] DML estimates 
-    \item But for DPL just cross-validation with 10 repetitions
+    \item[2.] Three Learners for outcomes \textit{(Linear, Lasso, Random Forest)} \& \\ Three learners for treatment \textit{(Logistic, Lasso, Random Forest)}
+    \item[3.] Combines learners to improve predictions with stacking regressor: 
+    	\[         \hat{Y_i} = \sum_{j=1}^{3} w_j \hat{Y}_{ij}      \text{  }  \text{ and } \text{  }  \hat{D_i} = \sum_{j=1}^{3} v_j \hat{D}_{ij}         \] 
+    where \( w_j \)  and \( v_j \) are learned through LassoCV. \\
+        \item $\rightarrow$ \textit{A robust approach to estimate \( E[Y|X] \) and \( E[D|X] \).}
+        \item[4.] Apply DoubleMLPLR (PartiallyLinear Regression) to estimatetheATE
 \end{itemize}
     
 \end{frame}
 
 
-\begin{frame}{DML results (on dropout and on time-graduating) with cross validation}
+\begin{frame}{DML Results (RQ1 \& RQ2) with Cross-Validation}
 
 \vspace{10pt}
 \begin{alertblock}{DML}
 	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
-	\item Estimated Treatment Effect on dropout: -0.201 VS -0.17,\\ with a wider confidence interval [-0.228, -0.173] VS   [-0.197, -0.143]
-	\item Estimated Treatment Effect on graduate within 3 years:  0.273 VS 0.235,\\ 
-    with a wider confidence interval [0.240, 0.306] VS [0.203, 0.267].
+	\item \textbf{RQ1:} Estimated Treatment Effect on dropout: -0.201*** \textit{vs -0.17***},\\ $\rightarrow$ wider confidence interval [-0.228, -0.173] \textit{vs [-0.197, -0.143]}
+	\item \textbf{RQ2:} Estimated Treatment Effect on graduate within 3 years:  0.273*** \textit{vs 0.235***},\\ 
+    $\rightarrow$ wider confidence interval [0.240, 0.306] \textit{vs [0.203, 0.267]}.
 	
 \end{itemize}
 \end{alertblock}
 \vspace{3pt}
 
 \begin{exampleblock}{Conclusion}
-\vspace{-2pt}
-The effect appears stronger in absolute value, which suggests better handling of data variability through stacking and cross-fitting
-\begin{itemize}
 
+The effect appears stronger in absolute value, which suggests better handling of data variability through stacking and cross-fitting. \\
+\vspace{-4pt}
+\begin{itemize}
     \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{decreases} the probability of \textbf{dropout} by 20.1 \%-points.
     \item [$\Rightarrow$]Receiving a scholarship \textit{significantly} \textbf{increases} the probability of \textbf{graduating} within \\ 3 years by 27.5 \%-points.
 \end{itemize}
@@ -485,69 +484,61 @@ The effect appears stronger in absolute value, which suggests better handling of
 
 
 
-\begin{frame}{DPL results (on dropout and on time-graduating) with cross validation}
+\begin{frame}{DPL Results (RQ1 \& RQ2) with Cross-Validation}
 
-\vspace{15pt}
-\begin{alertblock}{DPL VS DML }
-	\begin{itemize}[label=--,itemsep=1pt,topsep=2pt]
-	\item Estimated Treatment Effect on dropout: -0.220 VS -0.201 ,\\ with a wider confidence interval [-0.246, -0.194] VS [-0.228, -0,173]   
-	\item Estimated Treatment Effect on graduate within 3 years:  0.313 VS 0.273,\\ 
-    with a wider confidence interval [0.282, 0.344] VS [0.240, 0.306] .
-
+\vspace{10pt}
+\begin{alertblock}{DPL vs DML}
+\begin{itemize}[label=--, itemsep=2pt]
+    \item \textbf{RQ1 (Dropout):} Estimated Treatment Effect: -0.220 vs -0.201 \\
+    Confidence Interval: [-0.246, -0.194] vs [-0.228, -0.173]
+    
+    \item \textbf{RQ2 (Graduate in 3 Years):} Estimated Treatment Effect: 0.313 vs 0.273 \\
+    Confidence Interval: [0.282, 0.344] vs [0.240, 0.306]
 \end{itemize}
 \end{alertblock}
-\vspace{5pt}
 
+\vspace{5pt}
 \begin{exampleblock}{Conclusion}
 \vspace{-2pt}
 \begin{itemize}
-
-    \item [$\Rightarrow$]
-DML with Cross-Fitting  leads to stronger effects and more reliable inference. 
-\item [$\Rightarrow$] \\This method better controls for confounders and prevents overfitting, \\making it the \textbf{preferred approach for causal estimation} in this context.
+    \item[$\Rightarrow$] DML with Cross-Fitting produces stronger effects and tighter inference.
+    \item[$\Rightarrow$] It better controls for confounding and avoids overfitting,\\ making it the \textbf{preferred approach for causal estimation}.
 \end{itemize}
 \vspace{-3pt}
-	
 \end{exampleblock}
 
-    
 \end{frame}
 
 
 
+\section{8. Heterogeneous Treatment Effects}
 
-
-
-\section{8.Heterogeneous treatment effects: study the effect of the treatment on different subgroups of the population}
-
-\begin{frame}{STEPS to capture Heterogenous effect of treatment}
- \begin{alertblock}{RQ}
-	\textbf{Does the impact of scholarships on dropout and on time graduating differ for some subgroups of students? \\}
-$\rightarrow$ subgroups defined by: gender, age at enrollment, previous qualification grade , admission grade, mother education and father education
-    
-	\end{alertblock}
+\begin{frame}{Steps to Capture the Heterogenous Effect of Treatment}
+\textbf{Key Question:} \\
+\textbf{Does the impact of scholarships on dropout and graduation differ across student subgroups?}
+\vspace{-4pt}
+\begin{itemize}
+	\item [$\rightarrow$]  \textit{gender, age at enrollment, previous qualification grade, admission grade, mother \& father educ}
+\end{itemize}
 
 \begin{itemize}
-    \item[1.] \textbf{Step 1}: Estimate the potential outcomes for the treatment and control groups using two separate learners (XGboost here).
+    \item[1.] \textbf{Step 1: Predict Potential Outcomes} \\
+    Use two separate learners (e.g., XGBoost) to estimate:
+    \begin{itemize}
+        \item $g_C(Z)$: Predicted outcome if \textbf{control} ($D=0$)
+        \item $g_T(Z)$: Predicted outcome if \textbf{treated} ($D=1$)
+    \end{itemize}
 
-gC(Z): Predicted outcome when treated as control (D=0).
+    \item[2.] \textbf{Step 2: Estimate Individual Treatment Effects} \\
+    Calculate the treatment effect for each student:
+    $\widehat{TE}_i = g_T(Z_i) - g_C(Z_i)$
 
-gT(Z): Predicted outcome when treated as treatment (D=1).
-
-
-    \item[2.] \textbf{Step 2}: Calculate the treatment effect for each observation as the difference between the predicted outcomes:
-
-Treatment Effect= gT(Z)- gC(Z) for each indicual. This is the raw treatment effect.
-
-
-    \item[3.] \textbf{Step 3} : Regress the treatment effect on the covariates X (Lasso) : CATE(X)
+    \item[3.] \textbf{Step 3: Model Heterogeneity (CATE)} \\
+    Regress $\widehat{TE}_i$ on covariates $X$ using Lasso: $\widehat{CATE}(X)$
 \end{itemize}
 
     
 \end{frame}
-    
-
-
 
 
 \begin{frame}{Distribution of estimated individual effect of scholarship on our Target}
@@ -555,82 +546,73 @@ Treatment Effect= gT(Z)- gC(Z) for each indicual. This is the raw treatment effe
 \begin{figure}[h!]
     %\centering
     \begin{minipage}[b]{0.45\textwidth}
-        
-        \caption{Distribution of estimatesd HE on droupout}
+        \caption{Distribution of estimated HE on droupout}
         \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_of_TE_drop_out.png}
-
-       \textbf{ CATE(X) = -0.215}
+		$\widehat{CATE}(X)$ = -0.215
        
     \end{minipage}
     \hspace{0.05\textwidth}
     \begin{minipage}[b]{0.45\textwidth}
         %\centering
-        \caption{Distribution of estimatesd HE on graduating}
+        \caption{Distribution of estimated HE on graduating}
         \includegraphics[width=1\linewidth]{Tex_Pictures/Distribution_TE_graduate.png}
 
-         \textbf{ CATE(X) = 0.283}
+         $\widehat{CATE}(X)$ = 0.283
        
     \end{minipage}
-    
+    \centering \\
+    $\Rightarrow$ \textbf{Estimated Individual Effects supports our thesis\\of heterogeneous treatment effects for both RQ1 \& RQ2}
+
  \end{figure}   
 \end{frame}
 
 
 
 
-\begin{frame}{ Statistical test of existing HE of Scholarship}
+\begin{frame}{Statistical Test of Existing HE of Scholarship}
 
-Consider the regression (with \( P(Z) \) known as \( P(D = 1 | Z) \)) and and B(z) is a proxy of E(Y(0)|Z):
+Consider the regression [with \( P(Z) \) known as \( P(D = 1 | Z) \)] and and B(z) is a proxy of E(Y(0)|Z):
 \[
 y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D - P(Z))(S(Z) - S) + u
 \]
-\[ B_Z = \hat{gC(Z)}  \text{ and }  P_Z  \text{  }   \text{ estimated with XGboost classififer }\]
+\[ B_Z = \hat{gC(Z)}  \text{ and }  P_Z  \text{  }   \text{estimated with XGboost classififer }\]
 
+\vspace{10pt}
 
-\begin{figure}[h!]
-    %\centering
-    \begin{minipage}[b]{0.45\textwidth}
-        
-       \begin{table}[h]
-    \centering
-    \begin{tabular}{l c c}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\textbf{RQ1 (Dropout)}\\
+	\begin{tabular}{l c c}
         \hline
-        & \textbf{\(\hat\beta_2\) } & \textbf{CI} \\
+        & \textbf{\(\hat\beta_2\) } & CI \\
         \hline
-        Linear reg & -1.649 & [ -2.050, -1.245] \\
-        Elasticnet & -1.36 & [-1.962, -1.251] \\
+        Linear reg & -1.65 & [ -2.050, -1.245] \\
+        Elastic net & -1.36 & [-1.962, -1.251] \\
         \hline
-    \end{tabular}
-    \caption{ \(\hat\beta_2\) coefficients on Dropout.}
-    \label{tab:beta2_estimates}
-\end{table}
-    \end{minipage}
-    \hspace{0.05\textwidth}
-    \begin{minipage}[b]{0.45\textwidth}
-        \begin{table}[h]
-    \centering
-    \begin{tabular}{l c c}
-        \hline
-        & \textbf{ (\(\hat\beta_2\))} & \textbf{CI} \\
-        \hline
-        Linear reg & -1.649 & [ -2.050, -1.245] \\
-        Elasticnet & -1.36 & [-1.962, -1.251] \\
-        \hline
-    \end{tabular}
-    \caption{ \(\hat \beta_2\) coefficients on graduating within 3 years}
-    \label{tab:beta2_estimates}
-\end{table}
-       
-    \end{minipage}
+    \end{tabular} \newline
+\end{column}
 
- \end{figure}  
+\begin{column}{0.5\textwidth}
+\textbf{RQ2 (Graduating)}\\
+	\begin{tabular}{l c c}
+        \hline
+        & \textbf{ \(\hat\beta_2\)} & CI \\
+        \hline
+        Linear reg & 0.25 & [ 0.111, 0.391] \\
+        Elastic net & 0.38 & [0.332, 0.428] \\
+        \hline
+    \end{tabular} \newline
+\end{column}
+\end{columns}
 
- \begin{exampleblock}{Conclusion}
-\vspace{-1pt}
+\vspace{10pt}
+
+\begin{exampleblock}{Conclusion}
+\vspace{-4pt}
 \begin{itemize}
     \item [$\Rightarrow$]
 \textbf{ \(\hat{\beta_2}\) is statistically significant.}
-%\item [$\Rightarrow$] S(Z) is a \textbf{signal} for the existing of  HE among  subgroups .
+\item [$\Rightarrow$] S(Z) is a \textbf{signal} for the existing of  HE among  subgroups .
 \end{itemize}
 \vspace{-3pt}
 	
@@ -639,7 +621,7 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 \end{frame}
 
 
-\begin{frame}{ HE on dropout among subgroups (quintile of estimated individual effect }
+\begin{frame}{HE on Dropout among Subgroups}
 
 \begin{figure}[h]  
         \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_dropout.png}
@@ -649,7 +631,7 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 
 
 
-\begin{frame}{Description of the subgroup}
+\begin{frame}{Description of the Subgroup}
 \begin{table}[h]
     \centering
     \begin{tabular}{l c c}
@@ -683,7 +665,7 @@ y = \alpha_0 + \alpha_1 B(Z) + \alpha_2 S(Z) + \beta_1 (D - P(Z)) + \beta_2 (D -
 \end{frame}
 
 
-\begin{frame}{ HE on Time graduating among subgroups (quintile of estimated individual effect }
+\begin{frame}{HE on Time Graduating among Subgroups}
 
 \begin{figure}[h!]  
         \includegraphics[width=0.9\linewidth]{Tex_Pictures/HE_quintile_graduating.png} 
@@ -894,8 +876,8 @@ $\Rightarrow$ \textbf{The direction and significance of the effect remain stable
 \newline
 \textbf{Findings:}
 \begin{itemize}[label=--, itemsep=1pt]
-    \item Dropout: placebo ATE $\approx$ \textbf{+0.02}, (s.e. $\approx$ 0.015), \textit{p} $\approx$ 0.23
-    \item Graduation: placebo ATE $\approx$ \textbf{–0.01}, (s.e. $\approx$ 0.017), \textit{p} $\approx$ 0.68
+    \item Dropout: placebo ATE $\approx$ \textbf{+0.02} \\ (s.e. $\approx$ 0.015), \textit{p} $\approx$ 0.23
+    \item Graduation: placebo ATE $\approx$ \textbf{–0.01} \\ (s.e. $\approx$ 0.017), \textit{p} $\approx$ 0.68
     \item [$\Rightarrow$] Effects are statistically insignificant and close to zero.
 \end{itemize}
 \end{column}
@@ -946,7 +928,8 @@ Scholarships have a robust and meaningful causal impact on student outcomes — 
 	\textbf{Main Results}
 	\vspace{-5pt}
 	\begin{itemize}
-	\item[$\rightarrow$]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
+	\item[$\Rightarrow$]Dropout $\searrow$ 17–20 \%-points; Graduation $\nearrow$ 23–28 \%-points
+	\item[$\rightarrow$]HE with neg. effects on older with lower parental educ. and lower pre-use performance
 	\item[$\rightarrow$]Robust across estimators, regularization, covariate sets, Placebo test confirms validity
 	\end{itemize}
 	\vspace{-5pt}
@@ -959,56 +942,10 @@ Scholarships have a robust and meaningful causal impact on student outcomes — 
 	\end{itemize}
 	
 \end{frame}
-<<<<<<< HEAD
-=======
 
-\appendix
-
-\begin{frame}
-  \frametitle{Appendix 1: Illustration of DPL Model Selection RQ1 (dropout)}
-  \hypertarget{appendix-slide}{}
-  \vspace{10pt}
-  \centering
-  \includegraphics[width=1\linewidth]{Tex_Pictures/DPL_RQ1_model_selection}
-  \vfill
-  \raggedleft
-  \hyperlink{main-slide}{\beamergotobutton{Back to the main slide}}
-\end{frame}  
-
-\begin{frame}
-  \frametitle{Appendix 2: Illustration of DPL Model Selection RQ2 (graduating)}
-  \hypertarget{appendix-slide2}{}
-  \vspace{10pt}
-  \centering
-  \includegraphics[width=1\linewidth]{Tex_Pictures/DPL_RQ2_model_selection}
-  \vfill
-  \raggedleft
-  \hyperlink{main-slide2}{\beamergotobutton{Back to the main slide}}
-\end{frame}
-
-\end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 2ddcca1bb062474b71f7035b8119148220b13061
-
+% --------------------------
+% - APPENDIX -------------------------
+% --------------------------
 \appendix
 
 \begin{frame}
